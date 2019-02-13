@@ -1,0 +1,12 @@
+alter table pessoa add foreign key (end_cod) references endereco(id_endereco);
+alter table funcionario add foreign key (pes_cod) references pessoa(id_pessoa);
+alter table fornecedor add foreign key (pes_cod) references pessoa(id_pessoa);
+alter table telefone add foreign key (pes_cod) references pessoa(id_pessoa);
+alter table venda add foreign key (pes_cod) references pessoa(id_pessoa);
+alter table debito add foreign key (ven_cod) references venda(id_venda);
+alter table credito add foreign key (ven_cod) references venda(id_venda);
+alter table notaFiscalCompra add foreign key (pes_cod) references pessoa(id_pessoa);
+alter table itensV add foreign key (pro_cod) references produto(id_produto);
+alter table itensV add foreign key (ven_cod) references venda(id_venda);
+alter table itensNF add foreign key (pro_cod) references produto(id_produto);
+alter table itensNF add foreign key (nfc_cod) references notaFiscalCompra(id_notaFiscalCompra);

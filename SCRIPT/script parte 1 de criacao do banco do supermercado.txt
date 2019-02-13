@@ -1,0 +1,119 @@
+create table pessoa(
+
+id_pessoa serial not null,
+nome TEXT,
+dataNasc DATE,
+sexo CHAR(1),
+end_cod INTEGER, 
+PRIMARY KEY(id_pessoa)
+
+);
+create table funcionario(
+
+cpf VARCHAR(15),
+cargo TEXT,
+rg VARCHAR(9),
+datadmissao DATE,
+salario DECIMAL(5,2),
+pes_cod INTEGER not null
+
+);
+
+create table fornecedor(
+
+cnpj VARCHAR(18) ,
+pes_cod INTEGER not null
+
+);
+
+create table endereco(
+
+id_endereco serial not null,
+numeroCasa INTEGER,
+bairro TEXT,
+cidade TEXT,
+uf TEXT,
+cep VARCHAR(8) ,
+logradouro TEXT,
+PRIMARY KEY(id_endereco)
+
+);
+
+create table telefone(
+
+telefone VARCHAR(11),
+pes_cod INTEGER not null
+
+);
+
+create table venda(
+
+id_venda serial not null,
+dataVenda DATE,
+valor DOUBLE PRECISION ,
+pes_cod INTEGER not null,
+PRIMARY KEY(id_venda)
+
+);
+
+create table debito(
+
+dataPagamento DATE,
+tipoCartao TEXT,
+ven_cod INTEGER not null
+
+);
+
+create table credito(
+
+numeroParcela INTEGER,
+tipoCartao TEXT,
+dataVencimento DATE,
+ven_cod INTEGER not null
+
+);
+
+create table notaFiscalCompra(
+
+id_notaFiscalCompra serial not null,
+valor DOUBLE PRECISION ,
+hora TIMESTAMP,
+dataEmissao DATE,
+pes_cod INTEGER,
+PRIMARY KEY(id_notaFiscalCompra) 
+
+);
+
+create table itensNF(
+
+nome TEXT,
+valorUnitario DOUBLE PRECISION ,
+valorTotalItens DOUBLE PRECISION ,
+quantidade INTEGER,
+pro_cod INTEGER not null,
+nfc_cod INTEGER not null
+
+);
+
+create table produto(
+
+id_produto serial not null,
+descricao TEXT,
+quantidadeEstoque INTEGER,
+valorcompra DOUBLE PRECISION ,
+tipo TEXT,
+valorVenda DOUBLE PRECISION ,
+PRIMARY KEY(id_produto)
+
+);
+
+create table itensV(
+
+quantidade INTEGER,
+valorTotalItens DOUBLE PRECISION ,
+valorUnitario DOUBLE PRECISION ,
+pro_cod INTEGER not null,
+ven_cod INTEGER not null
+
+);
+

@@ -1,0 +1,12 @@
+drop table itensv;
+drop table itensnf;
+drop table debito;
+drop table credito;
+drop table produto;
+drop table notafiscalcompra;
+drop table venda;
+drop table telefone;
+drop table fornecedor;
+drop table funcionario;
+drop table pessoa;
+drop table endereco;

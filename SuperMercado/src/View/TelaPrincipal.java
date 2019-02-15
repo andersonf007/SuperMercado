@@ -5,17 +5,19 @@
  */
 package View;
 
+import ModelConection.ConexaoBD;
+
 /**
  *
  * @author ander
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaPrincipal
-     */
+    ConexaoBD conecta = new ConexaoBD();
     public TelaPrincipal() {
         initComponents();
+        conecta.conexao();
+        
     }
 
     /**

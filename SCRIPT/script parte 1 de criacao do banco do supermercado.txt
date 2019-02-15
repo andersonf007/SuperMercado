@@ -29,7 +29,7 @@ pes_cod INTEGER not null
 create table endereco(
 
 id_endereco serial not null,
-numeroCasa INTEGER,
+numeroCasa VARCHAR,
 bairro TEXT,
 cidade TEXT,
 uf TEXT,

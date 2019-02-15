@@ -90,6 +90,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jButtonCadPessoas.setBackground(new java.awt.Color(255, 255, 255));
         jButtonCadPessoas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cadastre-se.png"))); // NOI18N
+        jButtonCadPessoas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadPessoasActionPerformed(evt);
+            }
+        });
         jPanelCadastro.add(jButtonCadPessoas);
         jButtonCadPessoas.setBounds(10, 20, 120, 130);
 
@@ -139,6 +144,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(927, 557));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonCadPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadPessoasActionPerformed
+       CadPessoa Cadpessoa = new CadPessoa();
+       Cadpessoa.setVisible(true);
+    }//GEN-LAST:event_jButtonCadPessoasActionPerformed
 
     /**
      * @param args the command line arguments

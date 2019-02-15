@@ -6,6 +6,7 @@
 package ModelBeans;
 
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,15 +17,23 @@ public class PessoaBeans {
     private int codigo;
     private String nome;
     private Date dataNasc;
+    private String tipo;
     private String sexo;
     private int end_cod;
 
-    public PessoaBeans(int codigo,String nome,Date dataNasc,String sexo,int end_cod){
+    public PessoaBeans(int codigo,String nome,Date dataNasc,String tipo,String sexo,int end_cod
+    ){
         this.codigo = codigo;
         this.nome = nome;
         this.dataNasc = dataNasc;
+        this.tipo= tipo;
         this.sexo = sexo;
         this.end_cod = end_cod;
+    }
+
+    public PessoaBeans() {
+        throw new UnsupportedOperationException("Erro dentro do Beans de Pessoa"); //To change body of generated methods, choose Tools | Templates.
+
     }
     /**
      * @return the codigo
@@ -67,6 +76,8 @@ public class PessoaBeans {
     public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
     }
+    
+    
 
     /**
      * @return the sexo
@@ -94,6 +105,20 @@ public class PessoaBeans {
      */
     public void setEnd_cod(int end_cod) {
         this.end_cod = end_cod;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
     
 }

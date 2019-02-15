@@ -5,17 +5,23 @@
  */
 package View;
 
+import ModelBeans.PessoaBeans;
+import ModelConection.ConexaoBD;
+import ModelDao.PessoaDAO;
+
 /**
  *
  * @author ander
  */
 public class CadPessoa extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadPessoa
-     */
+        PessoaBeans pessoaBeans = new PessoaBeans();
+        PessoaDAO control = new PessoaDAO();
+        ConexaoBD conexaoBD = new ConexaoBD();
+        
     public CadPessoa() {
         initComponents();
+        
     }
 
     /**
@@ -59,7 +65,9 @@ public class CadPessoa extends javax.swing.JFrame {
         jTextFieldCidade = new javax.swing.JTextField();
         jTextFieldCep = new javax.swing.JTextField();
         jTextFieldCargo = new javax.swing.JTextField();
-        jDateChooserDataNasc1 = new com.toedter.calendar.JDateChooser();
+        jDateChooserDataNasc = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -89,8 +97,6 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel5.setBounds(220, 110, 40, 20);
         jPanel1.add(jTextFieldUf);
         jTextFieldUf.setBounds(420, 280, 40, 30);
-
-        jTextFieldNome.setText("jTextField1");
         jPanel1.add(jTextFieldNome);
         jTextFieldNome.setBounds(40, 70, 360, 30);
 
@@ -183,8 +189,21 @@ public class CadPessoa extends javax.swing.JFrame {
         jTextFieldCep.setBounds(40, 210, 210, 30);
         jPanel1.add(jTextFieldCargo);
         jTextFieldCargo.setBounds(200, 350, 170, 30);
-        jPanel1.add(jDateChooserDataNasc1);
-        jDateChooserDataNasc1.setBounds(40, 140, 170, 30);
+        jPanel1.add(jDateChooserDataNasc);
+        jDateChooserDataNasc.setBounds(40, 140, 170, 30);
+
+        jButton1.setText("Salvar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(620, 260, 90, 30);
+
+        jButton2.setText("Cancelar");
+        jPanel1.add(jButton2);
+        jButton2.setBounds(620, 320, 90, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(20, 10, 760, 400);
@@ -192,6 +211,16 @@ public class CadPessoa extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(805, 456));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+        pessoaBeans.setNome(jTextFieldNome.getText());
+        pessoaBeans.setTipo((String) jComboBoxTipoPessoa.getSelectedItem());
+        pessoaBeans.setSexo((String) jComboBoxSexo.getSelectedItem());
+        pessoaBeans.setDataNasc(jDateChooserDataNasc.getDate());
+        
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,10 +258,12 @@ public class CadPessoa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBoxSexo;
     private javax.swing.JComboBox jComboBoxTipoPessoa;
     private com.toedter.calendar.JDateChooser jDateChooserDataAdmissao;
-    private com.toedter.calendar.JDateChooser jDateChooserDataNasc1;
+    private com.toedter.calendar.JDateChooser jDateChooserDataNasc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

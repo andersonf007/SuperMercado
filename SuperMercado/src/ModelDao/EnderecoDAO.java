@@ -40,10 +40,15 @@ public class EnderecoDAO {
             pst.setString(4, mod.getUf());
             pst.setString(5, mod.getCep());
             pst.setString(6, mod.getLogradouro());
-            pst.executeUpdate();
-            // recupera chave do objeto
+            try{
+               pst.executeUpdate();
+               
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \n Erro: " + e);
+            }
+            
+            //recupera o ultimo ID cadastrado
             ResultSet rs = pst.getGeneratedKeys();
-
             while(rs.next()){
                 idEndereco = rs.getInt(1);
                 //JOptionPane.showMessageDialog(null, "id: " + idEndereco);

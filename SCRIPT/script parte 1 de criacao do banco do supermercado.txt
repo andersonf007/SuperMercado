@@ -15,7 +15,7 @@ cpf VARCHAR(15),
 cargo TEXT,
 rg VARCHAR(9),
 datadmissao DATE,
-salario DECIMAL(5,2),
+salario TEXT,
 pes_cod INTEGER not null
 
 );

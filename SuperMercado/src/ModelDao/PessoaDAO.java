@@ -36,9 +36,15 @@ public class PessoaDAO {
             pst.setString(3, mod.getSexo());
             pst.setString(4, mod.getTipo());
             pst.setInt(5, mod.getEnd_cod());
-            pst.executeUpdate();
+            try{
+               pst.executeUpdate();
+               
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \n Erro: " + e);
+            }
+            
+            //recupera o ultimo ID cadastrado
             ResultSet rs = pst.getGeneratedKeys();
-
             while(rs.next()){
                 idPessoa = rs.getInt(1);
                 //JOptionPane.showMessageDialog(null, "id: " + idPessoa);

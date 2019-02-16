@@ -21,28 +21,27 @@ public class PessoaJuridicaDAO {
         ConexaoBD conexaoBD = new ConexaoBD();
         PessoaJuridicaBeans mod = new PessoaJuridicaBeans();
      
-    public int Salvar(PessoaJuridicaBeans mod){
+    public void Salvar(PessoaJuridicaBeans mod){
         conexaoBD.conexao();
-        int idJudiciario = 0;
+        
         try {
             PreparedStatement pst = conexaoBD.con.prepareStatement("INSERT INTO fornecedor("+
                                                                    "cnpj, pes_cod)VALUES (?, ?);",PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setString(1, mod.getCnpj());
             pst.setInt(2, mod.getPes_cod());
-            pst.executeUpdate();
-            ResultSet rs = pst.getGeneratedKeys();
-
-            while(rs.next()){
-                idJudiciario = rs.getInt(1);
-                //JOptionPane.showMessageDialog(null, "id: " + idJudiciario);
-            }
             
+            try{
+               pst.executeUpdate();
+               
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar! \n Erro: " + e);
+            }
+                       
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel inserir os dados da pessoa \n Erro: " + ex);
         }
         
         conexaoBD.desconecta();
-        return idJudiciario;
     }
     
 }

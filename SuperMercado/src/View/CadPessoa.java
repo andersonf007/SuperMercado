@@ -7,11 +7,19 @@ package View;
 
 import ModelBeans.EnderecoBeans;
 import ModelBeans.PessoaBeans;
+import ModelBeans.PessoaFisicaBeans;
 import ModelBeans.PessoaJuridicaBeans;
 import ModelConection.ConexaoBD;
 import ModelDao.EnderecoDAO;
 import ModelDao.PessoaDAO;
+import ModelDao.PessoaFisicaDAO;
 import ModelDao.PessoaJuridicaDAO;
+import java.awt.event.ItemEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,9 +31,12 @@ public class CadPessoa extends javax.swing.JFrame {
         PessoaBeans pessoaBeans = new PessoaBeans();
         EnderecoBeans enderecoBeans = new EnderecoBeans();
         PessoaJuridicaBeans pessoaJuridicaBeans = new PessoaJuridicaBeans();
+        PessoaFisicaBeans pessoaFisicaBeans = new PessoaFisicaBeans();
         PessoaDAO controlPessoa = new PessoaDAO();
         EnderecoDAO controlEndereco = new EnderecoDAO();
         PessoaJuridicaDAO controlPessoaJuridica = new PessoaJuridicaDAO();
+        PessoaFisicaDAO controlPessoaFisica = new PessoaFisicaDAO();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         ConexaoBD conexaoBD = new ConexaoBD();
         
     public CadPessoa() {
@@ -76,9 +87,9 @@ public class CadPessoa extends javax.swing.JFrame {
         jTextFieldCargo = new javax.swing.JTextField();
         jDateChooserDataNasc = new com.toedter.calendar.JDateChooser();
         jButtonSalvar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
@@ -104,6 +115,8 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel5.setText("CPF/CNPJ:");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(220, 110, 90, 20);
+
+        jTextFieldUf.setEnabled(false);
         jPanel1.add(jTextFieldUf);
         jTextFieldUf.setBounds(420, 280, 40, 30);
         jPanel1.add(jTextFieldNome);
@@ -118,11 +131,14 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel15.setText("CEP:");
         jPanel1.add(jLabel15);
         jLabel15.setBounds(40, 180, 40, 20);
+
+        jDateChooserDataAdmissao.setEnabled(false);
         jPanel1.add(jDateChooserDataAdmissao);
         jDateChooserDataAdmissao.setBounds(380, 350, 170, 30);
 
         jComboBoxSexo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
+        jComboBoxSexo.setEnabled(false);
         jPanel1.add(jComboBoxSexo);
         jComboBoxSexo.setBounds(550, 70, 150, 30);
 
@@ -130,6 +146,8 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel7.setText("Rg:");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(440, 110, 30, 20);
+
+        jTextFieldLogradouro.setEnabled(false);
         jPanel1.add(jTextFieldLogradouro);
         jTextFieldLogradouro.setBounds(260, 210, 310, 30);
 
@@ -137,6 +155,8 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel10.setText("Telefone:");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(600, 110, 80, 20);
+
+        jTextFieldSalario.setEnabled(false);
         jPanel1.add(jTextFieldSalario);
         jTextFieldSalario.setBounds(40, 350, 150, 30);
 
@@ -159,6 +179,8 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel14.setText("UF:");
         jPanel1.add(jLabel14);
         jLabel14.setBounds(420, 250, 30, 20);
+
+        jTextFieldCPFCNPJ.setEnabled(false);
         jPanel1.add(jTextFieldCPFCNPJ);
         jTextFieldCPFCNPJ.setBounds(220, 140, 210, 30);
 
@@ -166,8 +188,12 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel13.setText("Cidade:");
         jPanel1.add(jLabel13);
         jLabel13.setBounds(40, 250, 60, 20);
+
+        jTextFieldBairro.setEnabled(false);
         jPanel1.add(jTextFieldBairro);
         jTextFieldBairro.setBounds(200, 280, 210, 30);
+
+        jTextFieldTelefone.setEnabled(false);
         jPanel1.add(jTextFieldTelefone);
         jTextFieldTelefone.setBounds(600, 140, 150, 30);
 
@@ -175,6 +201,8 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel12.setText("Bairro:");
         jPanel1.add(jLabel12);
         jLabel12.setBounds(200, 250, 60, 20);
+
+        jTextFieldRG.setEnabled(false);
         jPanel1.add(jTextFieldRG);
         jTextFieldRG.setBounds(440, 140, 150, 30);
 
@@ -182,6 +210,8 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel11.setText("Numero:");
         jPanel1.add(jLabel11);
         jLabel11.setBounds(590, 180, 70, 20);
+
+        jTextFieldNumero.setEnabled(false);
         jPanel1.add(jTextFieldNumero);
         jTextFieldNumero.setBounds(590, 210, 80, 30);
 
@@ -191,19 +221,33 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel16.setBounds(410, 40, 130, 20);
 
         jComboBoxTipoPessoa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jComboBoxTipoPessoa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Física", "Jurídica" }));
+        jComboBoxTipoPessoa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar", "Física", "Jurídica" }));
+        jComboBoxTipoPessoa.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxTipoPessoaItemStateChanged(evt);
+            }
+        });
         jPanel1.add(jComboBoxTipoPessoa);
         jComboBoxTipoPessoa.setBounds(410, 70, 130, 30);
+
+        jTextFieldCidade.setEnabled(false);
         jPanel1.add(jTextFieldCidade);
         jTextFieldCidade.setBounds(40, 280, 150, 30);
+
+        jTextFieldCep.setEnabled(false);
         jPanel1.add(jTextFieldCep);
         jTextFieldCep.setBounds(40, 210, 210, 30);
+
+        jTextFieldCargo.setEnabled(false);
         jPanel1.add(jTextFieldCargo);
         jTextFieldCargo.setBounds(200, 350, 170, 30);
+
+        jDateChooserDataNasc.setEnabled(false);
         jPanel1.add(jDateChooserDataNasc);
         jDateChooserDataNasc.setBounds(40, 140, 170, 30);
 
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.setEnabled(false);
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalvarActionPerformed(evt);
@@ -212,9 +256,10 @@ public class CadPessoa extends javax.swing.JFrame {
         jPanel1.add(jButtonSalvar);
         jButtonSalvar.setBounds(620, 260, 90, 30);
 
-        jButton2.setText("Cancelar");
-        jPanel1.add(jButton2);
-        jButton2.setBounds(620, 320, 90, 30);
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setEnabled(false);
+        jPanel1.add(jButtonCancelar);
+        jButtonCancelar.setBounds(620, 320, 90, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(20, 10, 760, 400);
@@ -237,17 +282,25 @@ public class CadPessoa extends javax.swing.JFrame {
         idEndereco = controlEndereco.Salvar(enderecoBeans);
         
         pessoaBeans.setNome(jTextFieldNome.getText());
-        if(tipo.equals("Física")){
+        if(tipo.equals("Física")){//fazendo a comparação se a pessoa é do tipo fisica ou juridica
             pessoaBeans.setTipo("F");
         }else{
             pessoaBeans.setTipo("J");
         }        
-        if(sexo.equals("Masculino")){
+        if(sexo.equals("Masculino")){//fazendo a comparação do sexo
             pessoaBeans.setSexo("M");
         }else{
             pessoaBeans.setSexo("F");
         }
-        pessoaBeans.setDataNasc(jDateChooserDataNasc.getDate());
+        if(jDateChooserDataNasc.getDate() == null){//para a pessoa juridica que não tem data de nascimento. esse if verifica se é nulo e adiciona uma data default
+            try {
+                pessoaBeans.setDataNasc(formato.parse("01/01/1900"));
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(null,"erro  "+ ex);
+            }
+        }else{
+            pessoaBeans.setDataNasc(jDateChooserDataNasc.getDate());
+        }        
         pessoaBeans.setEnd_cod(idEndereco);
         idPessoa = controlPessoa.Salvar(pessoaBeans);
         
@@ -255,9 +308,56 @@ public class CadPessoa extends javax.swing.JFrame {
             pessoaJuridicaBeans.setCnpj(jTextFieldCPFCNPJ.getText());
             pessoaJuridicaBeans.setPes_cod(idPessoa);
             controlPessoaJuridica.Salvar(pessoaJuridicaBeans);
-        }
-       
+        }else{
+            pessoaFisicaBeans.setCpf(jTextFieldCPFCNPJ.getText());
+            pessoaFisicaBeans.setCargo(jTextFieldCargo.getText());
+            pessoaFisicaBeans.setRg(jTextFieldRG.getText());
+            pessoaFisicaBeans.setDataAdmissao(jDateChooserDataAdmissao.getDate());
+            pessoaFisicaBeans.setSalario(jTextFieldSalario.getText());
+            pessoaFisicaBeans.setPes_cod(idPessoa);   
+            controlPessoaFisica.Salvar(pessoaFisicaBeans);
+        }       
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jComboBoxTipoPessoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoPessoaItemStateChanged
+        //String tipo = (String) jComboBoxTipoPessoa.getSelectedItem();
+        
+        if(jComboBoxTipoPessoa.getSelectedItem().equals("Física")){
+            jComboBoxSexo.setEnabled(true);
+            jDateChooserDataNasc.setEnabled(true);
+            jTextFieldCPFCNPJ.setEnabled(true);
+            jTextFieldRG.setEnabled(true);
+            jTextFieldTelefone.setEnabled(true);
+            jTextFieldCep.setEnabled(true);
+            jTextFieldLogradouro.setEnabled(true);
+            jTextFieldNumero.setEnabled(true);
+            jTextFieldCidade.setEnabled(true);
+            jTextFieldBairro.setEnabled(true);
+            jTextFieldUf.setEnabled(true);
+            jTextFieldSalario.setEnabled(true);
+            jTextFieldCargo.setEnabled(true);
+            jDateChooserDataAdmissao.setEnabled(true);
+            jButtonSalvar.setEnabled(true);
+            jButtonCancelar.setEnabled(true);
+            }else{
+            jComboBoxSexo.setEnabled(false);
+            jDateChooserDataNasc.setEnabled(false);
+            jTextFieldCPFCNPJ.setEnabled(true);
+            jTextFieldRG.setEnabled(false);
+            jTextFieldTelefone.setEnabled(true);
+            jTextFieldCep.setEnabled(true);
+            jTextFieldLogradouro.setEnabled(true);
+            jTextFieldNumero.setEnabled(true);
+            jTextFieldCidade.setEnabled(true);
+            jTextFieldBairro.setEnabled(true);
+            jTextFieldUf.setEnabled(true);
+            jTextFieldSalario.setEnabled(false);
+            jTextFieldCargo.setEnabled(false);
+            jDateChooserDataAdmissao.setEnabled(false);
+            jButtonSalvar.setEnabled(true);
+            jButtonCancelar.setEnabled(true);
+            }
+    }//GEN-LAST:event_jComboBoxTipoPessoaItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -295,7 +395,7 @@ public class CadPessoa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox jComboBoxSexo;
     private javax.swing.JComboBox jComboBoxTipoPessoa;

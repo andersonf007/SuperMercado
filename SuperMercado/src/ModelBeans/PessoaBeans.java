@@ -21,6 +21,7 @@ public class PessoaBeans {
     private String sexo;
     private int end_cod;
 
+    /*
     public PessoaBeans(int codigo,String nome,Date dataNasc,String tipo,String sexo,int end_cod
     ){
         this.codigo = codigo;
@@ -29,12 +30,9 @@ public class PessoaBeans {
         this.tipo= tipo;
         this.sexo = sexo;
         this.end_cod = end_cod;
-    }
+    }*/
 
-    public PessoaBeans() {
-        throw new UnsupportedOperationException("Erro dentro do Beans de Pessoa"); //To change body of generated methods, choose Tools | Templates.
-
-    }
+   
     /**
      * @return the codigo
      */

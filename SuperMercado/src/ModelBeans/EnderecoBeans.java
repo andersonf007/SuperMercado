@@ -18,6 +18,7 @@ public class EnderecoBeans {
     private String cep;
     private String logradouro;
     
+    /*
     public EnderecoBeans(String numeroCasa,String bairro,String cidade,String uf,String cep,String logradouro){
         this.numeroCasa = numeroCasa;
         this.bairro = bairro;
@@ -25,11 +26,9 @@ public class EnderecoBeans {
         this.uf = uf;
         this.cep = cep;
         this.logradouro = logradouro;
-    }
+    }*/
 
-    public EnderecoBeans() {
-        throw new UnsupportedOperationException("Erro dentro do Beans de endereço"); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     /**
      * @return the numeroCasa

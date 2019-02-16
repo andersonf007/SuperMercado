@@ -5,9 +5,12 @@
  */
 package View;
 
+import ModelBeans.EnderecoBeans;
 import ModelBeans.PessoaBeans;
 import ModelConection.ConexaoBD;
+import ModelDao.EnderecoDAO;
 import ModelDao.PessoaDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +19,9 @@ import ModelDao.PessoaDAO;
 public class CadPessoa extends javax.swing.JFrame {
 
         PessoaBeans pessoaBeans = new PessoaBeans();
-        PessoaDAO control = new PessoaDAO();
+        EnderecoBeans enderecoBeans = new EnderecoBeans();
+        PessoaDAO controlPessoa = new PessoaDAO();
+        EnderecoDAO controlEndereco = new EnderecoDAO();
         ConexaoBD conexaoBD = new ConexaoBD();
         
     public CadPessoa() {
@@ -92,9 +97,9 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel4.setBounds(550, 40, 50, 20);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("CPF:");
+        jLabel5.setText("CPF/CNPJ:");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(220, 110, 40, 20);
+        jLabel5.setBounds(220, 110, 90, 20);
         jPanel1.add(jTextFieldUf);
         jTextFieldUf.setBounds(420, 280, 40, 30);
         jPanel1.add(jTextFieldNome);
@@ -112,7 +117,8 @@ public class CadPessoa extends javax.swing.JFrame {
         jPanel1.add(jDateChooserDataAdmissao);
         jDateChooserDataAdmissao.setBounds(380, 350, 170, 30);
 
-        jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSexo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
         jPanel1.add(jComboBoxSexo);
         jComboBoxSexo.setBounds(550, 70, 150, 30);
 
@@ -180,7 +186,8 @@ public class CadPessoa extends javax.swing.JFrame {
         jPanel1.add(jLabel16);
         jLabel16.setBounds(410, 40, 130, 20);
 
-        jComboBoxTipoPessoa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTipoPessoa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxTipoPessoa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Física", "Jurídica" }));
         jPanel1.add(jComboBoxTipoPessoa);
         jComboBoxTipoPessoa.setBounds(410, 70, 130, 30);
         jPanel1.add(jTextFieldCidade);
@@ -213,11 +220,33 @@ public class CadPessoa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int idEndereco = 0,idPessoa = 0;
+        String sexo = (String) jComboBoxSexo.getSelectedItem(); 
+        String tipo = (String) jComboBoxTipoPessoa.getSelectedItem();
        
+        enderecoBeans.setCep(jTextFieldCep.getText());
+        enderecoBeans.setLogradouro(jTextFieldLogradouro.getText());
+        enderecoBeans.setNumeroCasa(jTextFieldNumero.getText());
+        enderecoBeans.setCidade(jTextFieldCidade.getText());
+        enderecoBeans.setBairro(jTextFieldBairro.getText());
+        enderecoBeans.setUf(jTextFieldUf.getText());
+        idEndereco = controlEndereco.Salvar(enderecoBeans);
+        
         pessoaBeans.setNome(jTextFieldNome.getText());
-        pessoaBeans.setTipo((String) jComboBoxTipoPessoa.getSelectedItem());
-        pessoaBeans.setSexo((String) jComboBoxSexo.getSelectedItem());
+        if(tipo.equals("Físico")){
+            pessoaBeans.setTipo("F");
+        }else{
+            pessoaBeans.setTipo("J");
+        }        
+        if(sexo.equals("Masculino")){
+            pessoaBeans.setSexo("M");
+        }else{
+            pessoaBeans.setSexo("F");
+        }
         pessoaBeans.setDataNasc(jDateChooserDataNasc.getDate());
+        pessoaBeans.setEnd_cod(idEndereco);
+        idPessoa = controlPessoa.Salvar(pessoaBeans);
+        
         
        
     }//GEN-LAST:event_jButton1ActionPerformed

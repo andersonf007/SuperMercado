@@ -9,7 +9,10 @@ import ModelBeans.EnderecoBeans;
 import ModelBeans.PessoaBeans;
 import ModelConection.ConexaoBD;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.*;
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -22,25 +25,37 @@ public class EnderecoDAO {
     
      ConexaoBD conexaoBD = new ConexaoBD();
      EnderecoBeans mod = new EnderecoBeans();
+     ResultSet resultSet;
      
-      public void Salvar(PessoaBeans mod){
+      public int Salvar(EnderecoBeans mod){
         conexaoBD.conexao();
-        
+        int idEndereco = 0;
         try {
             PreparedStatement pst = conexaoBD.con.prepareStatement("INSERT INTO endereco(" +
-                                                                   "id_endereco, numerocasa, bairro, cidade, uf, cep, logradouro)" +
-                                                                   "VALUES (?, ?, ?, ?, ?, ?, ?);");
-            pst.setString(1, mod.getNome());
-            pst.setDate(2, new java.sql.Date(mod.getDataNasc().getTime()));
-            pst.setString(3, mod.getSexo());
-            pst.setString(4, mod.getTipo());
-            pst.setInt(5, mod.getEnd_cod());
-            pst.execute();
+                                                                   "numerocasa, bairro, cidade, uf, cep, logradouro)" +
+                                                                   "VALUES (?, ?, ?, ?, ?, ?);",PreparedStatement.RETURN_GENERATED_KEYS);
+            pst.setString(1, mod.getNumeroCasa());
+            pst.setString(2, mod.getBairro());
+            pst.setString(3, mod.getCidade());
+            pst.setString(4, mod.getUf());
+            pst.setString(5, mod.getCep());
+            pst.setString(6, mod.getLogradouro());
+            pst.executeUpdate();
+            // recupera chave do objeto
+            ResultSet rs = pst.getGeneratedKeys();
+
+            while(rs.next()){
+                idEndereco = rs.getInt(1);
+                //JOptionPane.showMessageDialog(null, "id: " + idEndereco);
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel inserir os dados do endereço\n Erro: " + ex);
         }
         
         conexaoBD.desconecta();
+        return idEndereco;
     }
+
+   
      
 }

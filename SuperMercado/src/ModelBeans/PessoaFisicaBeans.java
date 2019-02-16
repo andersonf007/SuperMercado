@@ -15,10 +15,11 @@ public class PessoaFisicaBeans extends PessoaBeans{
     
     private String cnpj;
     
+    /*
     public PessoaFisicaBeans (int codigo,String nome,Date dataNasc,String tipo,String sexo,int end_cod,String cnpj){
         super(codigo,nome,dataNasc,tipo,sexo,end_cod);
         this.cnpj = cnpj;
-    }
+    }*/
 
     /**
      * @return the cnpj

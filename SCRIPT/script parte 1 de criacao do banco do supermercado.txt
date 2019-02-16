@@ -4,6 +4,7 @@ id_pessoa serial not null,
 nome TEXT,
 dataNasc DATE,
 sexo CHAR(1),
+tipo CHAR(1),
 end_cod INTEGER, 
 PRIMARY KEY(id_pessoa)
 

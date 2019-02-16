@@ -41,7 +41,7 @@ public class PessoaDAO {
 
             while(rs.next()){
                 idPessoa = rs.getInt(1);
-                JOptionPane.showMessageDialog(null, "id: " + idPessoa);
+                //JOptionPane.showMessageDialog(null, "id: " + idPessoa);
             }
             
         } catch (SQLException ex) {

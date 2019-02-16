@@ -7,9 +7,11 @@ package View;
 
 import ModelBeans.EnderecoBeans;
 import ModelBeans.PessoaBeans;
+import ModelBeans.PessoaJuridicaBeans;
 import ModelConection.ConexaoBD;
 import ModelDao.EnderecoDAO;
 import ModelDao.PessoaDAO;
+import ModelDao.PessoaJuridicaDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,8 +22,10 @@ public class CadPessoa extends javax.swing.JFrame {
 
         PessoaBeans pessoaBeans = new PessoaBeans();
         EnderecoBeans enderecoBeans = new EnderecoBeans();
+        PessoaJuridicaBeans pessoaJuridicaBeans = new PessoaJuridicaBeans();
         PessoaDAO controlPessoa = new PessoaDAO();
         EnderecoDAO controlEndereco = new EnderecoDAO();
+        PessoaJuridicaDAO controlPessoaJuridica = new PessoaJuridicaDAO();
         ConexaoBD conexaoBD = new ConexaoBD();
         
     public CadPessoa() {
@@ -57,7 +61,7 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextFieldCPF = new javax.swing.JTextField();
+        jTextFieldCPFCNPJ = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jTextFieldBairro = new javax.swing.JTextField();
         jTextFieldTelefone = new javax.swing.JTextField();
@@ -71,7 +75,7 @@ public class CadPessoa extends javax.swing.JFrame {
         jTextFieldCep = new javax.swing.JTextField();
         jTextFieldCargo = new javax.swing.JTextField();
         jDateChooserDataNasc = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -155,8 +159,8 @@ public class CadPessoa extends javax.swing.JFrame {
         jLabel14.setText("UF:");
         jPanel1.add(jLabel14);
         jLabel14.setBounds(420, 250, 30, 20);
-        jPanel1.add(jTextFieldCPF);
-        jTextFieldCPF.setBounds(220, 140, 210, 30);
+        jPanel1.add(jTextFieldCPFCNPJ);
+        jTextFieldCPFCNPJ.setBounds(220, 140, 210, 30);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel13.setText("Cidade:");
@@ -199,14 +203,14 @@ public class CadPessoa extends javax.swing.JFrame {
         jPanel1.add(jDateChooserDataNasc);
         jDateChooserDataNasc.setBounds(40, 140, 170, 30);
 
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonSalvarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(620, 260, 90, 30);
+        jPanel1.add(jButtonSalvar);
+        jButtonSalvar.setBounds(620, 260, 90, 30);
 
         jButton2.setText("Cancelar");
         jPanel1.add(jButton2);
@@ -219,7 +223,7 @@ public class CadPessoa extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         int idEndereco = 0,idPessoa = 0;
         String sexo = (String) jComboBoxSexo.getSelectedItem(); 
         String tipo = (String) jComboBoxTipoPessoa.getSelectedItem();
@@ -233,7 +237,7 @@ public class CadPessoa extends javax.swing.JFrame {
         idEndereco = controlEndereco.Salvar(enderecoBeans);
         
         pessoaBeans.setNome(jTextFieldNome.getText());
-        if(tipo.equals("Físico")){
+        if(tipo.equals("Física")){
             pessoaBeans.setTipo("F");
         }else{
             pessoaBeans.setTipo("J");
@@ -247,9 +251,13 @@ public class CadPessoa extends javax.swing.JFrame {
         pessoaBeans.setEnd_cod(idEndereco);
         idPessoa = controlPessoa.Salvar(pessoaBeans);
         
-        
+        if(tipo.equals("Jurídica")){
+            pessoaJuridicaBeans.setCnpj(jTextFieldCPFCNPJ.getText());
+            pessoaJuridicaBeans.setPes_cod(idPessoa);
+            controlPessoaJuridica.Salvar(pessoaJuridicaBeans);
+        }
        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,8 +295,8 @@ public class CadPessoa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox jComboBoxSexo;
     private javax.swing.JComboBox jComboBoxTipoPessoa;
     private com.toedter.calendar.JDateChooser jDateChooserDataAdmissao;
@@ -311,7 +319,7 @@ public class CadPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldBairro;
-    private javax.swing.JTextField jTextFieldCPF;
+    private javax.swing.JTextField jTextFieldCPFCNPJ;
     private javax.swing.JTextField jTextFieldCargo;
     private javax.swing.JTextField jTextFieldCep;
     private javax.swing.JTextField jTextFieldCidade;

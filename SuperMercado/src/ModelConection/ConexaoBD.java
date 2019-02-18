@@ -20,7 +20,7 @@ public class ConexaoBD {
     public Statement stm;// responsavel pelas pesquisas
     public ResultSet rs;//responsavel por guardar as pesquisas
     private String driver = "org.postgresql.Driver";
-    private String caminho = "jdbc:postgresql://localhost:5432/ProjetoCabeleireiro";
+    private String caminho = "jdbc:postgresql://localhost:5432/ProjetoSuperMercado";
     private String usuario = "postgres";
     private String senha = "123";
     public Connection con;//resonsavel pela conexao

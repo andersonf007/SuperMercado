@@ -9,11 +9,13 @@ import ModelBeans.EnderecoBeans;
 import ModelBeans.PessoaBeans;
 import ModelBeans.PessoaFisicaBeans;
 import ModelBeans.PessoaJuridicaBeans;
+import ModelBeans.TelefoneBeans;
 import ModelConection.ConexaoBD;
 import ModelDao.EnderecoDAO;
 import ModelDao.PessoaDAO;
 import ModelDao.PessoaFisicaDAO;
 import ModelDao.PessoaJuridicaDAO;
+import ModelDao.TelefoneDAO;
 import java.awt.event.ItemEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,12 +34,14 @@ public class CadPessoa extends javax.swing.JFrame {
         EnderecoBeans enderecoBeans = new EnderecoBeans();
         PessoaJuridicaBeans pessoaJuridicaBeans = new PessoaJuridicaBeans();
         PessoaFisicaBeans pessoaFisicaBeans = new PessoaFisicaBeans();
+        TelefoneBeans telefoneBeans = new TelefoneBeans();
         PessoaDAO controlPessoa = new PessoaDAO();
         EnderecoDAO controlEndereco = new EnderecoDAO();
         PessoaJuridicaDAO controlPessoaJuridica = new PessoaJuridicaDAO();
         PessoaFisicaDAO controlPessoaFisica = new PessoaFisicaDAO();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        TelefoneDAO controlTelefone = new TelefoneDAO();
         ConexaoBD conexaoBD = new ConexaoBD();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         
     public CadPessoa() {
         initComponents();
@@ -273,6 +277,7 @@ public class CadPessoa extends javax.swing.JFrame {
         String sexo = (String) jComboBoxSexo.getSelectedItem(); 
         String tipo = (String) jComboBoxTipoPessoa.getSelectedItem();
        
+        //Cadastrar o endereco 
         enderecoBeans.setCep(jTextFieldCep.getText());
         enderecoBeans.setLogradouro(jTextFieldLogradouro.getText());
         enderecoBeans.setNumeroCasa(jTextFieldNumero.getText());
@@ -281,6 +286,7 @@ public class CadPessoa extends javax.swing.JFrame {
         enderecoBeans.setUf(jTextFieldUf.getText());
         idEndereco = controlEndereco.Salvar(enderecoBeans);
         
+        //Cadastrar o pessoa
         pessoaBeans.setNome(jTextFieldNome.getText());
         if(tipo.equals("Física")){//fazendo a comparação se a pessoa é do tipo fisica ou juridica
             pessoaBeans.setTipo("F");
@@ -304,11 +310,13 @@ public class CadPessoa extends javax.swing.JFrame {
         pessoaBeans.setEnd_cod(idEndereco);
         idPessoa = controlPessoa.Salvar(pessoaBeans);
         
+        //Cadastrar o pessoa juridia
         if(tipo.equals("Jurídica")){
             pessoaJuridicaBeans.setCnpj(jTextFieldCPFCNPJ.getText());
             pessoaJuridicaBeans.setPes_cod(idPessoa);
             controlPessoaJuridica.Salvar(pessoaJuridicaBeans);
         }else{
+            //Cadastrar o pessoa fisica
             pessoaFisicaBeans.setCpf(jTextFieldCPFCNPJ.getText());
             pessoaFisicaBeans.setCargo(jTextFieldCargo.getText());
             pessoaFisicaBeans.setRg(jTextFieldRG.getText());
@@ -316,7 +324,12 @@ public class CadPessoa extends javax.swing.JFrame {
             pessoaFisicaBeans.setSalario(jTextFieldSalario.getText());
             pessoaFisicaBeans.setPes_cod(idPessoa);   
             controlPessoaFisica.Salvar(pessoaFisicaBeans);
-        }       
+        } 
+        
+        telefoneBeans.setTelefone(jTextFieldTelefone.getText());
+        telefoneBeans.setPes_cod(idPessoa);
+        controlTelefone.Salvar(telefoneBeans);       
+        
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jComboBoxTipoPessoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoPessoaItemStateChanged

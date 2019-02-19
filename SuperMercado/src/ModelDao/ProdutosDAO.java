@@ -5,7 +5,8 @@
  */
 package ModelDao;
 
-import ModelBeans.TelefoneBeans;
+
+import ModelBeans.ProdutosBeans;
 import ModelConection.ConexaoBD;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -15,21 +16,23 @@ import javax.swing.JOptionPane;
  *
  * @author ander
  */
-public class TelefoneDAO {
+public class ProdutosDAO {
     
     ConexaoBD conexaoBD = new ConexaoBD();
-    TelefoneBeans mod = new TelefoneBeans();
+    ProdutosBeans mod = new ProdutosBeans();
      
-    public void Salvar(TelefoneBeans mod){
+    public void Salvar(ProdutosBeans mod){
         
         conexaoBD.conexao();
         
         try {
-            PreparedStatement pst = conexaoBD.con.prepareStatement("INSERT INTO telefone(" +
-                                                                   "telefone, pes_cod)" +
-                                                                   "VALUES (?, ?);",PreparedStatement.RETURN_GENERATED_KEYS);
-            pst.setString(1, mod.getTelefone());
-            pst.setInt(2, mod.getPes_cod());
+            PreparedStatement pst = conexaoBD.con.prepareStatement("INSERT INTO produto(" +
+                                                                   "descricao, quantidadeestoque, valorcompra,valorvenda)" +
+                                                                   "VALUES (?, ?, ?, ?);",PreparedStatement.RETURN_GENERATED_KEYS);
+            pst.setString(1, mod.getDescricao());
+            pst.setInt(2, mod.getEstoque());
+            pst.setDouble(3, mod.getValorCompra());
+            pst.setDouble(4, mod.getValorVenda());            
             try{
                pst.executeUpdate();
                
@@ -44,4 +47,5 @@ public class TelefoneDAO {
         conexaoBD.desconecta();
        
     }
+    
 }

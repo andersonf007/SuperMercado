@@ -14,6 +14,7 @@ import ModelConection.ConexaoBD;
 public class TelaPrincipal extends javax.swing.JFrame {
 
     ConexaoBD conecta = new ConexaoBD();
+    
     public TelaPrincipal() {
         initComponents();
         conecta.conexao();
@@ -100,6 +101,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jButtonCadProdutos.setBackground(new java.awt.Color(255, 255, 255));
         jButtonCadProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Produtos.png"))); // NOI18N
+        jButtonCadProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadProdutosActionPerformed(evt);
+            }
+        });
         jPanelCadastro.add(jButtonCadProdutos);
         jButtonCadProdutos.setBounds(160, 20, 120, 130);
 
@@ -149,6 +155,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
        CadPessoa Cadpessoa = new CadPessoa();
        Cadpessoa.setVisible(true);
     }//GEN-LAST:event_jButtonCadPessoasActionPerformed
+
+    private void jButtonCadProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadProdutosActionPerformed
+        CadProdutos Cadprodutos = new CadProdutos();
+        Cadprodutos.setVisible(true);
+    }//GEN-LAST:event_jButtonCadProdutosActionPerformed
 
     /**
      * @param args the command line arguments

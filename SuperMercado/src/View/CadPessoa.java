@@ -333,7 +333,6 @@ public class CadPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jComboBoxTipoPessoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoPessoaItemStateChanged
-        //String tipo = (String) jComboBoxTipoPessoa.getSelectedItem();
         
         if(jComboBoxTipoPessoa.getSelectedItem().equals("Física")){
             jComboBoxSexo.setEnabled(true);

@@ -5,7 +5,9 @@
  */
 package View;
 
-import javax.swing.JTextField;
+import ModelBeans.ProdutosBeans;
+import ModelBeans.VendaBeans;
+import ModelConection.ConexaoBD;
 
 /**
  *
@@ -13,16 +15,34 @@ import javax.swing.JTextField;
  */
 public class PDV extends javax.swing.JFrame {
 
+    ConexaoBD conexaoBD = new ConexaoBD();
+    VendaBeans vendaBeans = new VendaBeans();
+    
     
     
     public PDV() {
         initComponents();
     }
 
-    public static void recebiProduto(int id,String descricao,double valor){
+    public void recebeProduto2(ProdutosBeans model){
         
+        jTextFieldCodigo.setText(Integer.toString(model.getId()));
+        jLabelDescricao.setText(model.getDescricao());
+        jTextFieldValorUnitario.setText(Double.toString(model.getValorVenda()));
+        jTextFieldQuantidade.setText(Integer.toString(1));
+        //JOptionPane.showMessageDialog(null, model.getDescricao());
         
     }
+   /* public void recebeProduto(int id,String descricao,double valor,int estoque){
+        //BuscarProdutos buscarProdutos = new BuscarProdutos();
+        //buscarProdutos.dispose();
+        
+        jTextFieldCodigo.setText(Integer.toString(id));
+        jLabelDescricao.setText(descricao);
+        jTextFieldValorUnitario.setText(Double.toString(id));
+        jTextFieldQuantidade.setText(Integer.toString(1));
+        
+    }*/
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -37,6 +57,7 @@ public class PDV extends javax.swing.JFrame {
         jTextFieldValorUnitario = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabelDescricao = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -60,6 +81,12 @@ public class PDV extends javax.swing.JFrame {
         jLabel3.setText("Valor unitário:");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(20, 140, 120, 22);
+
+        jTextFieldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldCodigoKeyPressed(evt);
+            }
+        });
         jPanel1.add(jTextFieldCodigo);
         jTextFieldCodigo.setBounds(20, 100, 170, 40);
         jPanel1.add(jTextFieldValorUnitario);
@@ -75,12 +102,42 @@ public class PDV extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 30, 800, 40);
 
+        jButton1.setText("F2");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(0, 390, 45, 23);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(10, 11, 800, 460);
 
         setSize(new java.awt.Dimension(838, 518));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyPressed
+        if(evt.getKeyCode() == 113){
+            //BuscarProdutos buscarProdutos = new BuscarProdutos();
+            //buscarProdutos.setVisible(true);
+            
+            BuscarProdutos n = new BuscarProdutos();
+        n.setVisible(true);
+        }
+    }//GEN-LAST:event_jTextFieldCodigoKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       // BuscarProdutos buscarProdutos = new BuscarProdutos();
+       // buscarProdutos.setVisible(true);
+       
+        //CadPessoa cad = new CadPessoa();
+        //cad.setVisible(true);
+        
+        BuscarProdutos n = new BuscarProdutos();
+        n.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
   
     public static void main(String args[]) {
@@ -116,6 +173,7 @@ public class PDV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

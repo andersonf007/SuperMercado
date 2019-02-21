@@ -74,6 +74,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jButtonPdv.setBackground(new java.awt.Color(255, 255, 255));
         jButtonPdv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/pdv.png"))); // NOI18N
+        jButtonPdv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPdvActionPerformed(evt);
+            }
+        });
         jPanelVendas.add(jButtonPdv);
         jButtonPdv.setBounds(20, 20, 120, 130);
 
@@ -160,6 +165,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         CadProdutos Cadprodutos = new CadProdutos();
         Cadprodutos.setVisible(true);
     }//GEN-LAST:event_jButtonCadProdutosActionPerformed
+
+    private void jButtonPdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPdvActionPerformed
+        PDV pdv = new PDV();
+        pdv.setVisible(true);
+    }//GEN-LAST:event_jButtonPdvActionPerformed
 
     /**
      * @param args the command line arguments

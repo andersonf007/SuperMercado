@@ -11,6 +11,7 @@ public class VendaBeans {
     private int id_pessoa;
     private Date dataVenda;
     private double valor;
+    private int pesquisa;
 
     /**
      * @return the id_pessoa
@@ -52,6 +53,20 @@ public class VendaBeans {
      */
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    /**
+     * @return the pesquisa
+     */
+    public int getPesquisa() {
+        return pesquisa;
+    }
+
+    /**
+     * @param pesquisa the pesquisa to set
+     */
+    public void setPesquisa(int pesquisa) {
+        this.pesquisa = pesquisa;
     }
     
     

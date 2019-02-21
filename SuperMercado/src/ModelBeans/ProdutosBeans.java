@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ModelBeans;
 
 /**
@@ -16,6 +11,8 @@ public class ProdutosBeans {
     private int estoque;
     private double valorVenda;
     private double valorCompra;
+    private String pesquisa;
+    private int id;
     
     /**
      * @return the descricao
@@ -71,6 +68,34 @@ public class ProdutosBeans {
      */
     public void setValorCompra(double valorCompra) {
         this.valorCompra = valorCompra;
+    }
+
+    /**
+     * @return the pesquisa
+     */
+    public String getPesquisa() {
+        return pesquisa;
+    }
+
+    /**
+     * @param pesquisa the pesquisa to set
+     */
+    public void setPesquisa(String pesquisa) {
+        this.pesquisa = pesquisa;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
     
     

@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import ModelBeans.ModelTabela;
+import ModelBeans.ProdutosBeans;
 import ModelConection.ConexaoBD;
+import ModelDao.ProdutosDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 
@@ -21,7 +16,8 @@ import javax.swing.ListSelectionModel;
 public class BuscarProdutos extends javax.swing.JFrame {
 
     ConexaoBD conecta = new ConexaoBD();
-    PDV pdv = new PDV();
+    ProdutosBeans produtoBeans = new ProdutosBeans();
+    ProdutosDAO controlProduto = new ProdutosDAO();
     
     public BuscarProdutos() {
         initComponents();
@@ -58,26 +54,20 @@ public class BuscarProdutos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableProdutos);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(0, 0, 490, 470);
+        jScrollPane1.setBounds(10, 14, 490, 275);
 
-        setSize(new java.awt.Dimension(510, 511));
+        setSize(new java.awt.Dimension(520, 339));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTableProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutosMouseClicked
-        String id_produto = ""+jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(),0);
-        conecta.conexao();
-        
-        conecta.executaSql("SELECT * FROM produto WHERE id_produto='"+id_produto+"'");
-        
-        try {
-            conecta.rs.first();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(BuscarProdutos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        conecta.desconecta();
+        String id_produto =""+jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(),0);
+        produtoBeans.setPesquisa(id_produto);
+        ProdutosBeans model = controlProduto.buscaProduto(produtoBeans);
+        PDV pdv = new PDV();
+        pdv.recebeProduto2(model);
+        //pdv.recebeProduto(model.getId(),model.getDescricao(),model.getValorVenda(),model.getEstoque());
+        this.dispose();
     }//GEN-LAST:event_jTableProdutosMouseClicked
 
     public void preencherTabela(String sql) {
@@ -135,6 +125,7 @@ public class BuscarProdutos extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BuscarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

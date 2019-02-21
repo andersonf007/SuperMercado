@@ -48,4 +48,20 @@ public class ProdutosDAO {
        
     }
     
+    public ProdutosBeans buscaProduto(ProdutosBeans mod) {
+        conexaoBD.conexao();
+        conexaoBD.executaSql("select * from produto where id_produto = '" + mod.getPesquisa() + "'");
+        try {
+            conexaoBD.rs.first();
+            mod.setId(conexaoBD.rs.getInt("id_produto"));
+            mod.setDescricao(conexaoBD.rs.getString("descricao"));
+            mod.setValorCompra(conexaoBD.rs.getDouble("valorcompra"));
+            mod.setValorVenda(conexaoBD.rs.getDouble("valorvenda"));
+            mod.setEstoque(conexaoBD.rs.getInt("quantidadeestoque"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "nao foi possivel buscar os produtos \n" + ex);
+        }
+        conexaoBD.desconecta();
+        return mod;
+    }
 }

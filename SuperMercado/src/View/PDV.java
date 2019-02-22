@@ -1,49 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import ModelBeans.ProdutosBeans;
 import ModelBeans.VendaBeans;
 import ModelConection.ConexaoBD;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author ander
  */
 public class PDV extends javax.swing.JFrame {
-
+    private volatile static PDV pdv;
     ConexaoBD conexaoBD = new ConexaoBD();
     VendaBeans vendaBeans = new VendaBeans();
     
-    
-    
     public PDV() {
         initComponents();
+        System.out.println("Entrou");
     }
+    
+    static PDV getInstance() {
+        synchronized (PDV.class) {
+            if (pdv == null) {
+                synchronized (PDV.class) {
+                    pdv = new PDV();
+                }
 
+            }
+        }
+
+        return pdv;
+    }
+    public PDV(ProdutosBeans model){
+        initComponents();
+        System.out.println("Entrou 2");
+        this.jTextFieldCodigo.setText(Integer.toString(model.getId()));
+        this.jLabelDescricao.setText("este qualqer"); //(model.getDescricao()
+        this.jTextFieldValorUnitario.setText(Double.toString(model.getValorVenda()));
+        this.jTextFieldQuantidade.setText(Integer.toString(1));
+       
+    }
+    
     public void recebeProduto2(ProdutosBeans model){
         
         jTextFieldCodigo.setText(Integer.toString(model.getId()));
-        jLabelDescricao.setText(model.getDescricao());
+        jLabelDescricao.setText("este qualqer"); //(model.getDescricao()
         jTextFieldValorUnitario.setText(Double.toString(model.getValorVenda()));
         jTextFieldQuantidade.setText(Integer.toString(1));
-        //JOptionPane.showMessageDialog(null, model.getDescricao());
+        getContentPane().repaint();
+        JOptionPane.showMessageDialog(null, model.getDescricao());
         
     }
-   /* public void recebeProduto(int id,String descricao,double valor,int estoque){
-        //BuscarProdutos buscarProdutos = new BuscarProdutos();
-        //buscarProdutos.dispose();
-        
-        jTextFieldCodigo.setText(Integer.toString(id));
-        jLabelDescricao.setText(descricao);
-        jTextFieldValorUnitario.setText(Double.toString(id));
-        jTextFieldQuantidade.setText(Integer.toString(1));
-        
-    }*/
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -120,26 +128,18 @@ public class PDV extends javax.swing.JFrame {
 
     private void jTextFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyPressed
         if(evt.getKeyCode() == 113){
-            //BuscarProdutos buscarProdutos = new BuscarProdutos();
-            //buscarProdutos.setVisible(true);
-            
-            BuscarProdutos n = new BuscarProdutos();
+           
+        BuscarProdutos n = new BuscarProdutos(this);
         n.setVisible(true);
         }
     }//GEN-LAST:event_jTextFieldCodigoKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       // BuscarProdutos buscarProdutos = new BuscarProdutos();
-       // buscarProdutos.setVisible(true);
        
-        //CadPessoa cad = new CadPessoa();
-        //cad.setVisible(true);
-        
-        BuscarProdutos n = new BuscarProdutos();
+        BuscarProdutos n = new BuscarProdutos(this);
         n.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-  
+ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -167,7 +167,9 @@ public class PDV extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PDV().setVisible(true);
+              //  new PDV().setVisible(true);
+            
+                pdv.getInstance().setVisible(true);
             }
         });
     }
@@ -184,4 +186,7 @@ public class PDV extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldQuantidade;
     private javax.swing.JTextField jTextFieldValorUnitario;
     // End of variables declaration//GEN-END:variables
+
+  
+    
 }

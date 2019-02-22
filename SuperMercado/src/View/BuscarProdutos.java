@@ -14,17 +14,17 @@ import javax.swing.ListSelectionModel;
  * @author ander
  */
 public class BuscarProdutos extends javax.swing.JFrame {
-
+    
+    PDV pdv = new PDV();    
     ConexaoBD conecta = new ConexaoBD();
     ProdutosBeans produtoBeans = new ProdutosBeans();
     ProdutosDAO controlProduto = new ProdutosDAO();
     
-    public BuscarProdutos() {
+    public BuscarProdutos(PDV pdv) {
         initComponents();
         preencherTabela("SELECT id_produto, descricao, quantidadeestoque, valorvenda FROM produto order by descricao;");
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -64,9 +64,7 @@ public class BuscarProdutos extends javax.swing.JFrame {
         String id_produto =""+jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(),0);
         produtoBeans.setPesquisa(id_produto);
         ProdutosBeans model = controlProduto.buscaProduto(produtoBeans);
-        PDV pdv = new PDV();
-        pdv.recebeProduto2(model);
-        //pdv.recebeProduto(model.getId(),model.getDescricao(),model.getValorVenda(),model.getEstoque());
+        this.pdv.recebeProduto2(model);
         this.dispose();
     }//GEN-LAST:event_jTableProdutosMouseClicked
 
@@ -103,6 +101,7 @@ public class BuscarProdutos extends javax.swing.JFrame {
         jTableProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         conecta.desconecta();
     }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -131,10 +130,11 @@ public class BuscarProdutos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarProdutos().setVisible(true);
+                //new BuscarProdutos().setVisible(true);
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;

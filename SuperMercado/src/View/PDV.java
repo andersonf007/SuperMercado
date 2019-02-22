@@ -1,5 +1,6 @@
 package View;
 
+import Controllers.PDVController;
 import ModelBeans.ProdutosBeans;
 import ModelBeans.VendaBeans;
 import ModelConection.ConexaoBD;
@@ -16,40 +17,15 @@ public class PDV extends javax.swing.JFrame {
     
     public PDV() {
         initComponents();
-        System.out.println("Entrou");
+        System.out.println("Criou nova View PDV");
     }
     
-    static PDV getInstance() {
-        synchronized (PDV.class) {
-            if (pdv == null) {
-                synchronized (PDV.class) {
-                    pdv = new PDV();
-                }
-
-            }
-        }
-
-        return pdv;
-    }
-    public PDV(ProdutosBeans model){
-        initComponents();
-        System.out.println("Entrou 2");
-        this.jTextFieldCodigo.setText(Integer.toString(model.getId()));
-        this.jLabelDescricao.setText("este qualqer"); //(model.getDescricao()
-        this.jTextFieldValorUnitario.setText(Double.toString(model.getValorVenda()));
-        this.jTextFieldQuantidade.setText(Integer.toString(1));
-       
-    }
-    
-    public void recebeProduto2(ProdutosBeans model){
-        
+    public void recebeProduto2(ProdutosBeans model){   
         jTextFieldCodigo.setText(Integer.toString(model.getId()));
-        jLabelDescricao.setText("este qualqer"); //(model.getDescricao()
+        jLabelDescricao.setText(model.getDescricao()); //(model.getDescricao()
         jTextFieldValorUnitario.setText(Double.toString(model.getValorVenda()));
         jTextFieldQuantidade.setText(Integer.toString(1));
         getContentPane().repaint();
-        JOptionPane.showMessageDialog(null, model.getDescricao());
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -128,15 +104,13 @@ public class PDV extends javax.swing.JFrame {
 
     private void jTextFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyPressed
         if(evt.getKeyCode() == 113){
-           
-        BuscarProdutos n = new BuscarProdutos(this);
-        n.setVisible(true);
+          PDVController.openSelectionProducts(); // Abre Lista dos produtos cadastrados
         }
     }//GEN-LAST:event_jTextFieldCodigoKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
-        BuscarProdutos n = new BuscarProdutos(this);
+        BuscarProdutos n = new BuscarProdutos();
         n.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
  
@@ -167,9 +141,7 @@ public class PDV extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              //  new PDV().setVisible(true);
-            
-                pdv.getInstance().setVisible(true);
+                new PDV().setVisible(true);
             }
         });
     }

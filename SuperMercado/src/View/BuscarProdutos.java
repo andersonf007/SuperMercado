@@ -1,5 +1,6 @@
 package View;
 
+import Controllers.PDVController;
 import ModelBeans.ModelTabela;
 import ModelBeans.ProdutosBeans;
 import ModelConection.ConexaoBD;
@@ -14,13 +15,12 @@ import javax.swing.ListSelectionModel;
  * @author ander
  */
 public class BuscarProdutos extends javax.swing.JFrame {
-    
-    PDV pdv = new PDV();    
+      
     ConexaoBD conecta = new ConexaoBD();
     ProdutosBeans produtoBeans = new ProdutosBeans();
     ProdutosDAO controlProduto = new ProdutosDAO();
     
-    public BuscarProdutos(PDV pdv) {
+    public BuscarProdutos() {
         initComponents();
         preencherTabela("SELECT id_produto, descricao, quantidadeestoque, valorvenda FROM produto order by descricao;");
     }
@@ -64,7 +64,8 @@ public class BuscarProdutos extends javax.swing.JFrame {
         String id_produto =""+jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(),0);
         produtoBeans.setPesquisa(id_produto);
         ProdutosBeans model = controlProduto.buscaProduto(produtoBeans);
-        this.pdv.recebeProduto2(model);
+        PDVController.setInfoProd(model);
+       // this.pdv.recebeProduto2(model);
         this.dispose();
     }//GEN-LAST:event_jTableProdutosMouseClicked
 
@@ -130,7 +131,7 @@ public class BuscarProdutos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new BuscarProdutos().setVisible(true);
+                new BuscarProdutos().setVisible(true);
             }
         });
     }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package View;
-
+import Controllers.PDVController;
 import ModelConection.ConexaoBD;
 import javax.swing.JFrame;
 
@@ -21,7 +21,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
         conecta.conexao();
-        this.pdv = new PDV();
         System.out.println("Entrou na tela principal");
     }
 
@@ -166,7 +165,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCadProdutosActionPerformed
 
     private void jButtonPdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPdvActionPerformed
-        this.pdv.setVisible(true);
+//        this.pdv.setVisible(true);
+//        Invoca Controller para ele chamar a view
+          PDVController.openPDV();
     }//GEN-LAST:event_jButtonPdvActionPerformed
 
     public static void main(String args[]) {

@@ -1,4 +1,4 @@
-package View;
+ package View;
 
 import Controllers.PDVController;
 import ModelBeans.ModelTabela;
@@ -64,8 +64,7 @@ public class BuscarProdutos extends javax.swing.JFrame {
         String id_produto =""+jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(),0);
         produtoBeans.setPesquisa(id_produto);
         ProdutosBeans model = controlProduto.buscaProduto(produtoBeans);
-        PDVController.setInfoProd(model);
-       // this.pdv.recebeProduto2(model);
+        PDVController.setInfoProd(model);//Envia as informacoes do produto!
         this.dispose();
     }//GEN-LAST:event_jTableProdutosMouseClicked
 

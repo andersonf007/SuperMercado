@@ -1,10 +1,14 @@
 package View;
 
 import Controllers.PDVController;
+import ModelBeans.ModelTabela;
 import ModelBeans.ProdutosBeans;
 import ModelBeans.VendaBeans;
 import ModelConection.ConexaoBD;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -14,15 +18,17 @@ public class PDV extends javax.swing.JFrame {
     private volatile static PDV pdv;
     ConexaoBD conexaoBD = new ConexaoBD();
     VendaBeans vendaBeans = new VendaBeans();
-    
+
+    String descricao, id, valor, quantidade;
+      
     public PDV() {
         initComponents();
-        System.out.println("Criou nova View PDV");
+        //System.out.println("Criou nova View PDV");
     }
     
     public void recebeProduto2(ProdutosBeans model){   
         jTextFieldCodigo.setText(Integer.toString(model.getId()));
-        jLabelDescricao.setText(model.getDescricao()); //(model.getDescricao()
+        jLabelDescricao.setText(model.getDescricao());
         jTextFieldValorUnitario.setText(Double.toString(model.getValorVenda()));
         jTextFieldQuantidade.setText(Integer.toString(1));
         getContentPane().repaint();
@@ -42,12 +48,19 @@ public class PDV extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabelDescricao = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableListaDeProdutos = new javax.swing.JTable();
+        jButtonConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
         jPanel1.setLayout(null);
+
+        jTextFieldQuantidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextFieldQuantidade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldQuantidade.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel1.add(jTextFieldQuantidade);
         jTextFieldQuantidade.setBounds(20, 250, 170, 40);
 
@@ -66,6 +79,9 @@ public class PDV extends javax.swing.JFrame {
         jPanel1.add(jLabel3);
         jLabel3.setBounds(20, 140, 120, 22);
 
+        jTextFieldCodigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextFieldCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextFieldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldCodigoKeyPressed(evt);
@@ -73,6 +89,10 @@ public class PDV extends javax.swing.JFrame {
         });
         jPanel1.add(jTextFieldCodigo);
         jTextFieldCodigo.setBounds(20, 100, 170, 40);
+
+        jTextFieldValorUnitario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextFieldValorUnitario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldValorUnitario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel1.add(jTextFieldValorUnitario);
         jTextFieldValorUnitario.setBounds(20, 170, 170, 40);
 
@@ -95,6 +115,32 @@ public class PDV extends javax.swing.JFrame {
         jPanel1.add(jButton1);
         jButton1.setBounds(0, 390, 45, 23);
 
+        jTableListaDeProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(jTableListaDeProdutos);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(240, 90, 550, 280);
+
+        jButtonConfirmar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfirmarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonConfirmar);
+        jButtonConfirmar.setBounds(120, 300, 110, 30);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(10, 11, 800, 460);
 
@@ -109,11 +155,46 @@ public class PDV extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCodigoKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
         BuscarProdutos n = new BuscarProdutos();
         n.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
+        id = jTextFieldCodigo.getText();
+        descricao = jLabelDescricao.getText(); 
+        valor = jTextFieldValorUnitario.getText();
+        quantidade = jTextFieldQuantidade.getText();
+        preencherTabela(id,descricao,quantidade,valor);
+    }//GEN-LAST:event_jButtonConfirmarActionPerformed
  
+       public void preencherTabela(String id,String descricao, String quantidade, String valor) {
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"ID", "Descrição", "Quantidade", "Valor"};
+
+//        try {
+//            do{
+                dados.add(new Object[]{id, descricao, quantidade, valor});            
+//            while();
+//        } catch (Exception ex) {
+//            JOptionPane.showMessageDialog(null, "nao foi possivel baixar a tabela de preencimento da lista de produtos\n" + ex);
+//        }
+        ModelTabela modelo = new ModelTabela(dados, colunas);
+
+        jTableListaDeProdutos.setModel(modelo);
+        jTableListaDeProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTableListaDeProdutos.getColumnModel().getColumn(0).setResizable(false);
+        jTableListaDeProdutos.getColumnModel().getColumn(1).setPreferredWidth(225);
+        jTableListaDeProdutos.getColumnModel().getColumn(1).setResizable(false);
+        jTableListaDeProdutos.getColumnModel().getColumn(2).setPreferredWidth(109);
+        jTableListaDeProdutos.getColumnModel().getColumn(2).setResizable(false);
+        jTableListaDeProdutos.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTableListaDeProdutos.getColumnModel().getColumn(3).setResizable(false);
+        jTableListaDeProdutos.getTableHeader().setReorderingAllowed(false);
+        jTableListaDeProdutos.setAutoResizeMode(jTableListaDeProdutos.AUTO_RESIZE_OFF);
+        jTableListaDeProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+    }
+       
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -148,12 +229,15 @@ public class PDV extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelDescricao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableListaDeProdutos;
     private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldQuantidade;
     private javax.swing.JTextField jTextFieldValorUnitario;

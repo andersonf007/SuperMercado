@@ -6,7 +6,6 @@
 package View;
 import Controllers.PDVController;
 import ModelConection.ConexaoBD;
-import javax.swing.JFrame;
 
 /**
  *
@@ -14,14 +13,13 @@ import javax.swing.JFrame;
  */
 
 public class TelaPrincipal extends javax.swing.JFrame {
-    private JFrame pdv; //
-
+    
     ConexaoBD conecta = new ConexaoBD();
     
     public TelaPrincipal() {
         initComponents();
         conecta.conexao();
-        System.out.println("Entrou na tela principal");
+        //System.out.println("Entrou na tela principal");
     }
 
     @SuppressWarnings("unchecked")
@@ -165,9 +163,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCadProdutosActionPerformed
 
     private void jButtonPdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPdvActionPerformed
-//        this.pdv.setVisible(true);
-//        Invoca Controller para ele chamar a view
-          PDVController.openPDV();
+        PDVController.openPDV();
     }//GEN-LAST:event_jButtonPdvActionPerformed
 
     public static void main(String args[]) {

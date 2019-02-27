@@ -18,6 +18,7 @@ public class PDV extends javax.swing.JFrame {
     private volatile static PDV pdv;
     ConexaoBD conexaoBD = new ConexaoBD();
     VendaBeans vendaBeans = new VendaBeans();
+    ArrayList lista = new ArrayList();
 
     String descricao, id, valor, quantidade;
       
@@ -160,25 +161,23 @@ public class PDV extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-        id = jTextFieldCodigo.getText();
-        descricao = jLabelDescricao.getText(); 
-        valor = jTextFieldValorUnitario.getText();
-        quantidade = jTextFieldQuantidade.getText();
-        preencherTabela(id,descricao,quantidade,valor);
+        //Chama a função para preencher a lista (Tabela)
+        preencherTabela();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
  
-    public void preencherTabela(String id,String descricao, String quantidade, String valor) {
-        ArrayList dados = new ArrayList();
+    /*Função Incrementa a lista de produtos na view*/
+    public void preencherTabela() {
+           
+           String id = jTextFieldCodigo.getText();
+           String descricao = jLabelDescricao.getText(); 
+           String valor = jTextFieldValorUnitario.getText();
+           String quantidade = jTextFieldQuantidade.getText();
+           
         String[] colunas = new String[]{"ID", "Descrição", "Quantidade", "Valor"};
 
-//        try {
-        //    do{
-                dados.add(new Object[]{id, descricao, quantidade, valor});            
-        //   while();
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(null, "nao foi possivel baixar a tabela de preencimento da lista de produtos\n" + ex);
-//        }
-        ModelTabela modelo = new ModelTabela(dados, colunas);
+        lista.add(new Object[]{id, descricao, quantidade, valor});            
+
+        ModelTabela modelo = new ModelTabela(lista, colunas);
 
         jTableListaDeProdutos.setModel(modelo);
         jTableListaDeProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);

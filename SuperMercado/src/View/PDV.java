@@ -167,14 +167,14 @@ public class PDV extends javax.swing.JFrame {
         preencherTabela(id,descricao,quantidade,valor);
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
  
-       public void preencherTabela(String id,String descricao, String quantidade, String valor) {
+    public void preencherTabela(String id,String descricao, String quantidade, String valor) {
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{"ID", "Descrição", "Quantidade", "Valor"};
 
 //        try {
-//            do{
+        //    do{
                 dados.add(new Object[]{id, descricao, quantidade, valor});            
-//            while();
+        //   while();
 //        } catch (Exception ex) {
 //            JOptionPane.showMessageDialog(null, "nao foi possivel baixar a tabela de preencimento da lista de produtos\n" + ex);
 //        }

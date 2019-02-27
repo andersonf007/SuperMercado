@@ -41,4 +41,5 @@ public class PDVController {
     public static void setInfoProd(ProdutosBeans model){
         pdv.recebeProduto2(model);
     }
+    
 }

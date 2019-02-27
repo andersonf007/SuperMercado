@@ -19,11 +19,13 @@ public class PDV extends javax.swing.JFrame {
     ConexaoBD conexaoBD = new ConexaoBD();
     VendaBeans vendaBeans = new VendaBeans();
     ArrayList lista = new ArrayList();
-
+    
     String descricao, id, valor, quantidade;
+    double total =0;
       
     public PDV() {
         initComponents();
+        jTextFieldCodigo.requestFocus();
         //System.out.println("Criou nova View PDV");
     }
     
@@ -33,6 +35,8 @@ public class PDV extends javax.swing.JFrame {
         jTextFieldValorUnitario.setText(Double.toString(model.getValorVenda()));
         jTextFieldQuantidade.setText(Integer.toString(1));
         getContentPane().repaint();
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -48,10 +52,10 @@ public class PDV extends javax.swing.JFrame {
         jTextFieldValorUnitario = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabelDescricao = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableListaDeProdutos = new javax.swing.JTable();
         jButtonConfirmar = new javax.swing.JButton();
+        jTextFieldTotal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -107,15 +111,6 @@ public class PDV extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 30, 800, 40);
 
-        jButton1.setText("F2");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(0, 390, 45, 23);
-
         jTableListaDeProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -130,7 +125,7 @@ public class PDV extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableListaDeProdutos);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(240, 90, 550, 280);
+        jScrollPane1.setBounds(240, 90, 540, 280);
 
         jButtonConfirmar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonConfirmar.setText("Confirmar");
@@ -142,8 +137,13 @@ public class PDV extends javax.swing.JFrame {
         jPanel1.add(jButtonConfirmar);
         jButtonConfirmar.setBounds(120, 300, 110, 30);
 
+        jTextFieldTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextFieldTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(jTextFieldTotal);
+        jTextFieldTotal.setBounds(629, 380, 150, 40);
+
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(10, 11, 800, 460);
+        jPanel1.setBounds(0, 1, 820, 480);
 
         setSize(new java.awt.Dimension(838, 518));
         setLocationRelativeTo(null);
@@ -155,16 +155,19 @@ public class PDV extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldCodigoKeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        BuscarProdutos n = new BuscarProdutos();
-        n.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         //Chama a função para preencher a lista (Tabela)
         preencherTabela();
+        jTextFieldCodigo.setText("");
+        jLabelDescricao.setText("");
+        total += Double.parseDouble(jTextFieldValorUnitario.getText());
+        jTextFieldTotal.setText(Double.toString(total));
+        jTextFieldValorUnitario.setText("");
+        jTextFieldQuantidade.setText("");
+        jTextFieldCodigo.requestFocus();        
+        
+        
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
- 
     /*Função Incrementa a lista de produtos na view*/
     public void preencherTabela() {
            
@@ -172,6 +175,7 @@ public class PDV extends javax.swing.JFrame {
            String descricao = jLabelDescricao.getText(); 
            String valor = jTextFieldValorUnitario.getText();
            String quantidade = jTextFieldQuantidade.getText();
+          
            
         String[] colunas = new String[]{"ID", "Descrição", "Quantidade", "Valor"};
 
@@ -182,11 +186,11 @@ public class PDV extends javax.swing.JFrame {
         jTableListaDeProdutos.setModel(modelo);
         jTableListaDeProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTableListaDeProdutos.getColumnModel().getColumn(0).setResizable(false);
-        jTableListaDeProdutos.getColumnModel().getColumn(1).setPreferredWidth(225);
+        jTableListaDeProdutos.getColumnModel().getColumn(1).setPreferredWidth(325);
         jTableListaDeProdutos.getColumnModel().getColumn(1).setResizable(false);
-        jTableListaDeProdutos.getColumnModel().getColumn(2).setPreferredWidth(109);
+        jTableListaDeProdutos.getColumnModel().getColumn(2).setPreferredWidth(80);
         jTableListaDeProdutos.getColumnModel().getColumn(2).setResizable(false);
-        jTableListaDeProdutos.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTableListaDeProdutos.getColumnModel().getColumn(3).setPreferredWidth(78);
         jTableListaDeProdutos.getColumnModel().getColumn(3).setResizable(false);
         jTableListaDeProdutos.getTableHeader().setReorderingAllowed(false);
         jTableListaDeProdutos.setAutoResizeMode(jTableListaDeProdutos.AUTO_RESIZE_OFF);
@@ -227,7 +231,6 @@ public class PDV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -239,6 +242,7 @@ public class PDV extends javax.swing.JFrame {
     private javax.swing.JTable jTableListaDeProdutos;
     private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldQuantidade;
+    private javax.swing.JTextField jTextFieldTotal;
     private javax.swing.JTextField jTextFieldValorUnitario;
     // End of variables declaration//GEN-END:variables
 

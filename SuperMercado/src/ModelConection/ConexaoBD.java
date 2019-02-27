@@ -22,7 +22,7 @@ public class ConexaoBD {
     private String driver = "org.postgresql.Driver";
     private String caminho = "jdbc:postgresql://localhost:5432/ProjetoSuperMercado";
     private String usuario = "postgres";
-    private String senha = "jhg64188";
+    private String senha = "123";
     public Connection con;//resonsavel pela conexao
     
     public void conexao(){//metodo responsavel por realizar conexao com a base de dados

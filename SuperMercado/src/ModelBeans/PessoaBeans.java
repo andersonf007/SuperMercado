@@ -13,13 +13,15 @@ import javax.swing.JOptionPane;
  * @author ander
  */
 public class PessoaBeans {
-    
+
+  
     private int codigo;
     private String nome;
     private Date dataNasc;
     private String tipo;
     private String sexo;
     private int end_cod;
+    private String pesquisa;
 
     /*
     public PessoaBeans(int codigo,String nome,Date dataNasc,String tipo,String sexo,int end_cod
@@ -117,6 +119,20 @@ public class PessoaBeans {
      */
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+    
+      /**
+     * @return the pesquisa
+     */
+    public String getPesquisa() {
+        return pesquisa;
+    }
+
+    /**
+     * @param pesquisa the pesquisa to set
+     */
+    public void setPesquisa(String pesquisa) {
+        this.pesquisa = pesquisa;
     }
     
 }

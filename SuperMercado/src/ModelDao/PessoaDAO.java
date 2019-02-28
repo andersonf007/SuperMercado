@@ -58,7 +58,21 @@ public class PessoaDAO {
         return idPessoa;
     }
     
-            
-    
-    
+    public PessoaBeans buscaPessoa(PessoaBeans mod) {
+        conexaoBD.conexao();
+        conexaoBD.executaSql("select * from pessoa where id_pessoa = '" + mod.getPesquisa() + "'");
+        try {
+            conexaoBD.rs.first();
+            mod.setCodigo(conexaoBD.rs.getInt("id_pessoa"));
+            mod.setNome(conexaoBD.rs.getString("nome"));
+            mod.setDataNasc(conexaoBD.rs.getDate("datanasc"));
+            mod.setEnd_cod(conexaoBD.rs.getInt("end_cod"));
+            mod.setTipo(conexaoBD.rs.getString("tipo"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "nao foi possivel buscar os produtos \n" + ex);
+        }
+        conexaoBD.desconecta();
+        return mod;
+    }        
+       
 }

@@ -1,6 +1,9 @@
 package Controllers;
 
+import ModelBeans.PessoaBeans;
+import ModelBeans.PessoaFisicaBeans;
 import ModelBeans.ProdutosBeans;
+import View.BuscarPessoaFisica;
 import View.BuscarProdutos;
 import View.PDV;
 import View.Pagamento;
@@ -40,10 +43,16 @@ public class PDVController {
     * @author José Henrique Gregorio <henriquegreg45@gmail.com>
     */
     public static void setInfoProd(ProdutosBeans model){
-        pdv.recebeProduto2(model);
+        pdv.recebeProduto(model);
     }
     
-    public static void  openPagamento(){
-        new Pagamento().setVisible(true);
+    public static void setInfoPessoa(PessoaBeans modelPessoa, PessoaFisicaBeans modelPessoaFisica){
+        pdv.recebeDadosPessoaFisica(modelPessoa,modelPessoaFisica);
+    }
+    
+    public static void openPagamento(){
+    }
+    
+    public static void openBuscarPessoaFisica(){
     }
 }

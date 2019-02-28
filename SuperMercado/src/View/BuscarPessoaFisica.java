@@ -5,8 +5,13 @@
  */
 package View;
 
+import Controllers.PDVController;
 import ModelBeans.ModelTabela;
+import ModelBeans.PessoaBeans;
+import ModelBeans.PessoaFisicaBeans;
 import ModelConection.ConexaoBD;
+import ModelDao.PessoaDAO;
+import ModelDao.PessoaFisicaDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -19,6 +24,10 @@ import javax.swing.ListSelectionModel;
 public class BuscarPessoaFisica extends javax.swing.JFrame {
 
     ConexaoBD conecta = new ConexaoBD();
+    PessoaDAO pessoaDAO = new PessoaDAO();
+    PessoaBeans pessoaBeans = new PessoaBeans();
+    PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
+    PessoaFisicaBeans pessoaFisicaBeans = new PessoaFisicaBeans();
     
     public BuscarPessoaFisica() {
         initComponents();
@@ -50,6 +59,11 @@ public class BuscarPessoaFisica extends javax.swing.JFrame {
 
             }
         ));
+        jTableListaPessoasFisicas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableListaPessoasFisicasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableListaPessoasFisicas);
 
         jPanel1.add(jScrollPane1);
@@ -61,6 +75,16 @@ public class BuscarPessoaFisica extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(404, 367));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTableListaPessoasFisicasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaPessoasFisicasMouseClicked
+        String id_pessoa =""+jTableListaPessoasFisicas.getValueAt(jTableListaPessoasFisicas.getSelectedRow(),0);
+        pessoaBeans.setPesquisa(id_pessoa);
+        pessoaFisicaBeans.setPesquisa(id_pessoa);
+        PessoaBeans modelPessoa = pessoaDAO.buscaPessoa(pessoaBeans);
+        PessoaFisicaBeans modelPessoaFisica = pessoaFisicaDAO.buscaPessoaFisica(pessoaFisicaBeans);
+        PDVController.setInfoPessoa(modelPessoa,modelPessoaFisica);//Envia as informacoes da pessoa!
+        this.dispose();
+    }//GEN-LAST:event_jTableListaPessoasFisicasMouseClicked
 
     public void preencherTabela(String sql) {
         ArrayList dados = new ArrayList();

@@ -12,6 +12,8 @@ import java.util.Date;
  * @author ander
  */
 public class PessoaFisicaBeans {
+
+    
     
     private String cpf;
     private String cargo;
@@ -19,6 +21,7 @@ public class PessoaFisicaBeans {
     private Date dataAdmissao;
     private String salario;
     private int pes_cod;
+    private String pesquisa;
 
     /**
      * @return the cpf
@@ -102,5 +105,19 @@ public class PessoaFisicaBeans {
      */
     public void setPes_cod(int pes_cod) {
         this.pes_cod = pes_cod;
+    }
+    
+    /**
+     * @return the pesquisa
+     */
+    public String getPesquisa() {
+        return pesquisa;
+    }
+
+    /**
+     * @param pesquisa the pesquisa to set
+     */
+    public void setPesquisa(String pesquisa) {
+        this.pesquisa = pesquisa;
     }
 }

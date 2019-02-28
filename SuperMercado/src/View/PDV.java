@@ -2,7 +2,10 @@ package View;
 
 import Controllers.PDVController;
 import Controllers.PagamentoControllers;
+import Controllers.PessoaFisicaControllers;
 import ModelBeans.ModelTabela;
+import ModelBeans.PessoaBeans;
+import ModelBeans.PessoaFisicaBeans;
 import ModelBeans.ProdutosBeans;
 import ModelBeans.VendaBeans;
 import ModelConection.ConexaoBD;
@@ -30,16 +33,19 @@ public class PDV extends javax.swing.JFrame {
         //System.out.println("Criou nova View PDV");
     }
     
-    public void recebeProduto2(ProdutosBeans model){   
+    public void recebeProduto(ProdutosBeans model){   
         jTextFieldCodigo.setText(Integer.toString(model.getId()));
         jLabelDescricao.setText(model.getDescricao());
         jTextFieldValorUnitario.setText(Double.toString(model.getValorVenda()));
         jTextFieldQuantidade.setText(Integer.toString(1));
-        getContentPane().repaint();
-        
-        
+        getContentPane().repaint();   
     }
 
+    public void recebeDadosPessoaFisica(PessoaBeans modelPessoa, PessoaFisicaBeans modelPessoaFisica){
+        jLabelNome.setText(modelPessoa.getNome());
+        jLabelCpf.setText(modelPessoaFisica.getCpf());
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -146,6 +152,7 @@ public class PDV extends javax.swing.JFrame {
 
         jTextFieldTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextFieldTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldTotal.setEnabled(false);
         jPanel1.add(jTextFieldTotal);
         jTextFieldTotal.setBounds(629, 380, 150, 40);
 
@@ -163,6 +170,8 @@ public class PDV extends javax.swing.JFrame {
         jLabel4.setText("Nome:");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(0, 380, 50, 20);
+
+        jLabelNome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jPanel1.add(jLabelNome);
         jLabelNome.setBounds(50, 380, 190, 20);
 
@@ -170,6 +179,8 @@ public class PDV extends javax.swing.JFrame {
         jLabel5.setText("CPF:");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(250, 380, 30, 20);
+
+        jLabelCpf.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jPanel1.add(jLabelCpf);
         jLabelCpf.setBounds(280, 380, 190, 20);
 
@@ -212,13 +223,13 @@ public class PDV extends javax.swing.JFrame {
 
     private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
         PagamentoControllers.openPagamento();
-        PagamentoControllers.setValorTotal(total);
+        PagamentoControllers.setValorTotal(total);//transferir o valor total para a tela de pagamento
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
     private void jLabelInformarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInformarClienteMouseClicked
-        BuscarPessoaFisica bpf = new BuscarPessoaFisica();
-       bpf.setVisible(true);
+       PessoaFisicaControllers.openBuscarPessoaFisica();
     }//GEN-LAST:event_jLabelInformarClienteMouseClicked
+    
     /*Função Incrementa a lista de produtos na view*/
     public void preencherTabela() {
            

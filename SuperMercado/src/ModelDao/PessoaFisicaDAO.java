@@ -49,4 +49,20 @@ public class PessoaFisicaDAO {
        
     }
     
+   public PessoaFisicaBeans buscaPessoaFisica(PessoaFisicaBeans mod) {
+        conexaoBD.conexao();
+        conexaoBD.executaSql("select * from funcionario where pes_cod = '" + mod.getPesquisa() + "'");
+        try {
+            conexaoBD.rs.first();
+            mod.setPes_cod(conexaoBD.rs.getInt("pes_cod"));
+            mod.setCpf(conexaoBD.rs.getString("cpf"));
+            mod.setDataAdmissao(conexaoBD.rs.getDate("datadmissao"));
+            mod.setRg(conexaoBD.rs.getString("rg"));
+            mod.setCargo(conexaoBD.rs.getString("cargo"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "nao foi possivel buscar os produtos \n" + ex);
+        }
+        conexaoBD.desconecta();
+        return mod;
+    }   
 }

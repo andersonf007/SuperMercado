@@ -16,11 +16,11 @@ public class PagamentoControllers {
     static Pagamento pagamento;
     
     public static void openPagamento(){
-        if(pagamento == null){
+        if(pagamento == null)
             pagamento = new Pagamento();
             
         pagamento.setVisible(true);
-        }
+        
     }
     
     public static void setValorTotal(double valor){

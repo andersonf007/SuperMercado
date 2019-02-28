@@ -3,6 +3,7 @@ package Controllers;
 import ModelBeans.ProdutosBeans;
 import View.BuscarProdutos;
 import View.PDV;
+import View.Pagamento;
 
 
 /**
@@ -42,4 +43,7 @@ public class PDVController {
         pdv.recebeProduto2(model);
     }
     
+    public static void  openPagamento(){
+        new Pagamento().setVisible(true);
+    }
 }

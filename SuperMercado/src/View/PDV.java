@@ -1,6 +1,7 @@
 package View;
 
 import Controllers.PDVController;
+import Controllers.PagamentoControllers;
 import ModelBeans.ModelTabela;
 import ModelBeans.ProdutosBeans;
 import ModelBeans.VendaBeans;
@@ -15,11 +16,11 @@ import javax.swing.ListSelectionModel;
  * @author ander
  */
 public class PDV extends javax.swing.JFrame {
+    
     private volatile static PDV pdv;
     ConexaoBD conexaoBD = new ConexaoBD();
     VendaBeans vendaBeans = new VendaBeans();
-    ArrayList lista = new ArrayList();
-    
+    ArrayList lista = new ArrayList();    
     String descricao, id, valor, quantidade;
     double total =0;
       
@@ -56,6 +57,7 @@ public class PDV extends javax.swing.JFrame {
         jTableListaDeProdutos = new javax.swing.JTable();
         jButtonConfirmar = new javax.swing.JButton();
         jTextFieldTotal = new javax.swing.JTextField();
+        jButtonFinalizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -142,6 +144,16 @@ public class PDV extends javax.swing.JFrame {
         jPanel1.add(jTextFieldTotal);
         jTextFieldTotal.setBounds(629, 380, 150, 40);
 
+        jButtonFinalizar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButtonFinalizar.setText("Finalizar");
+        jButtonFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFinalizarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonFinalizar);
+        jButtonFinalizar.setBounds(670, 430, 150, 40);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 1, 820, 480);
 
@@ -168,6 +180,11 @@ public class PDV extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
+
+    private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
+        PagamentoControllers.openPagamento();
+        PagamentoControllers.setValorTotal(total);
+    }//GEN-LAST:event_jButtonFinalizarActionPerformed
     /*Função Incrementa a lista de produtos na view*/
     public void preencherTabela() {
            
@@ -232,6 +249,7 @@ public class PDV extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonConfirmar;
+    private javax.swing.JButton jButtonFinalizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -58,6 +58,11 @@ public class PDV extends javax.swing.JFrame {
         jButtonConfirmar = new javax.swing.JButton();
         jTextFieldTotal = new javax.swing.JTextField();
         jButtonFinalizar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabelNome = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabelCpf = new javax.swing.JLabel();
+        jLabelInformarCliente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -154,6 +159,30 @@ public class PDV extends javax.swing.JFrame {
         jPanel1.add(jButtonFinalizar);
         jButtonFinalizar.setBounds(670, 430, 150, 40);
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Nome:");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(0, 380, 50, 20);
+        jPanel1.add(jLabelNome);
+        jLabelNome.setBounds(50, 380, 190, 20);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("CPF:");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(250, 380, 30, 20);
+        jPanel1.add(jLabelCpf);
+        jLabelCpf.setBounds(280, 380, 190, 20);
+
+        jLabelInformarCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelInformarCliente.setText("Informar o cliente");
+        jLabelInformarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelInformarClienteMouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabelInformarCliente);
+        jLabelInformarCliente.setBounds(60, 350, 110, 20);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 1, 820, 480);
 
@@ -185,6 +214,11 @@ public class PDV extends javax.swing.JFrame {
         PagamentoControllers.openPagamento();
         PagamentoControllers.setValorTotal(total);
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
+
+    private void jLabelInformarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInformarClienteMouseClicked
+        BuscarPessoaFisica bpf = new BuscarPessoaFisica();
+       bpf.setVisible(true);
+    }//GEN-LAST:event_jLabelInformarClienteMouseClicked
     /*Função Incrementa a lista de produtos na view*/
     public void preencherTabela() {
            
@@ -253,7 +287,12 @@ public class PDV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelCpf;
     private javax.swing.JLabel jLabelDescricao;
+    private javax.swing.JLabel jLabelInformarCliente;
+    private javax.swing.JLabel jLabelNome;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

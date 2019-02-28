@@ -38,6 +38,7 @@ public class Pagamento extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextFieldValorTotal = new javax.swing.JTextField();
         jComboBoxFormaPagamento = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 255));
@@ -53,6 +54,11 @@ public class Pagamento extends javax.swing.JFrame {
 
         jButtonConfirmar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfirmarActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButtonConfirmar);
         jButtonConfirmar.setBounds(200, 310, 130, 40);
 
@@ -78,12 +84,20 @@ public class Pagamento extends javax.swing.JFrame {
         jPanel2.add(jComboBoxFormaPagamento);
         jComboBoxFormaPagamento.setBounds(20, 110, 180, 40);
 
+        jLabel2.setText("jLabel2");
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(20, 80, 180, 30);
+
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 480, 360);
 
         setSize(new java.awt.Dimension(493, 396));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
+        
+    }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,6 +139,7 @@ public class Pagamento extends javax.swing.JFrame {
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JComboBox<String> jComboBoxFormaPagamento;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextFieldValorTotal;

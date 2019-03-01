@@ -50,9 +50,7 @@ public class PDVController {
         pdv.recebeDadosPessoaFisica(modelPessoa,modelPessoaFisica);
     }
     
-    public static void openPagamento(){
-    }
-    
-    public static void openBuscarPessoaFisica(){
+    public static void setInfoPag(String FormaDePagamento, String valorTotal){
+        pdv.finalizacaoDeCompra(FormaDePagamento, valorTotal);
     }
 }

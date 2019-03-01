@@ -6,6 +6,8 @@
 
 package View;
 
+import Controllers.PDVController;
+
 /**
  *
  * @author ander
@@ -80,11 +82,11 @@ public class Pagamento extends javax.swing.JFrame {
         jPanel1.setBounds(230, 10, 240, 110);
 
         jComboBoxFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jComboBoxFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão De Credito", "Cartão De Debito" }));
+        jComboBoxFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cartão De Credito", "Cartão De Debito" }));
         jPanel2.add(jComboBoxFormaPagamento);
         jComboBoxFormaPagamento.setBounds(20, 110, 180, 40);
 
-        jLabel2.setText("jLabel2");
+        jLabel2.setText("Forma de Pagamento:");
         jPanel2.add(jLabel2);
         jLabel2.setBounds(20, 80, 180, 30);
 
@@ -96,7 +98,10 @@ public class Pagamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-        
+        String FormaDePagamento = (String) jComboBoxFormaPagamento.getSelectedItem();
+        String valorTotal = jTextFieldValorTotal.getText();
+        PDVController.setInfoPag(FormaDePagamento, valorTotal);
+        this.dispose();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     /**

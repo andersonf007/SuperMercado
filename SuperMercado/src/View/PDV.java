@@ -1,17 +1,22 @@
 package View;
 
+
 import Controllers.PDVController;
 import Controllers.PagamentoControllers;
 import Controllers.PessoaFisicaControllers;
+import ModelBeans.CreditoBeans;
+import ModelBeans.DebitoBeans;
 import ModelBeans.ModelTabela;
 import ModelBeans.PessoaBeans;
 import ModelBeans.PessoaFisicaBeans;
 import ModelBeans.ProdutosBeans;
 import ModelBeans.VendaBeans;
 import ModelConection.ConexaoBD;
-import java.sql.SQLException;
+import ModelDao.CreditoDAO;
+import ModelDao.DebitoDAO;
+import ModelDao.VendaDAO;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.Date;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -23,9 +28,16 @@ public class PDV extends javax.swing.JFrame {
     private volatile static PDV pdv;
     ConexaoBD conexaoBD = new ConexaoBD();
     VendaBeans vendaBeans = new VendaBeans();
+    VendaDAO vendaDAO = new VendaDAO();
+    DebitoBeans debitoBeans = new DebitoBeans();
+    DebitoDAO debitoDao = new DebitoDAO();
+    CreditoBeans creditoBeans = new CreditoBeans();
+    CreditoDAO creditoDAO = new CreditoDAO();
     ArrayList lista = new ArrayList();    
+    Date data = new Date(System.currentTimeMillis());
     String descricao, id, valor, quantidade;
     double total =0;
+    int idClienteFisica;
       
     public PDV() {
         initComponents();
@@ -42,8 +54,23 @@ public class PDV extends javax.swing.JFrame {
     }
 
     public void recebeDadosPessoaFisica(PessoaBeans modelPessoa, PessoaFisicaBeans modelPessoaFisica){
+        jLabelNome.setText("");
+        jLabelCpf.setText("");
         jLabelNome.setText(modelPessoa.getNome());
         jLabelCpf.setText(modelPessoaFisica.getCpf());
+        idClienteFisica = modelPessoa.getCodigo();
+    }
+    
+    public void finalizacaoDeCompra(String FormaDePagamento, String valorTotal){
+        
+        vendaBeans.setValor(Integer.parseInt(valorTotal));
+        vendaBeans.setDataVenda(data);
+        vendaBeans.setId_pessoa(idClienteFisica);
+        int idVenda = vendaDAO.Salvar(vendaBeans);
+        
+        if(FormaDePagamento.equals("Cartão De Credito")){
+           // creditoBeans.set
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -171,7 +198,7 @@ public class PDV extends javax.swing.JFrame {
         jPanel1.add(jLabel4);
         jLabel4.setBounds(0, 380, 50, 20);
 
-        jLabelNome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel1.add(jLabelNome);
         jLabelNome.setBounds(50, 380, 190, 20);
 
@@ -180,7 +207,7 @@ public class PDV extends javax.swing.JFrame {
         jPanel1.add(jLabel5);
         jLabel5.setBounds(250, 380, 30, 20);
 
-        jLabelCpf.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelCpf.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel1.add(jLabelCpf);
         jLabelCpf.setBounds(280, 380, 190, 20);
 

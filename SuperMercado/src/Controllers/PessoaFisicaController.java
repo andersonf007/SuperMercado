@@ -11,7 +11,7 @@ import View.BuscarPessoaFisica;
  *
  * @author ander
  */
-public class PessoaFisicaControllers {
+public class PessoaFisicaController {
     
     static BuscarPessoaFisica pessoaFisica;
     

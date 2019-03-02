@@ -7,6 +7,7 @@ import View.BuscarPessoaFisica;
 import View.BuscarProdutos;
 import View.PDV;
 import View.Pagamento;
+import java.util.Date;
 
 
 /**
@@ -50,7 +51,7 @@ public class PDVController {
         pdv.recebeDadosPessoaFisica(modelPessoa,modelPessoaFisica);
     }
     
-    public static void setInfoPag(String FormaDePagamento, String valorTotal){
-        pdv.finalizacaoDeCompra(FormaDePagamento, valorTotal);
+    public static void setInfoPag(String FormaDePagamento, String valorTotal,int numeroParcelas,Date dataDeVencimento,String tipoCartao){
+        pdv.finalizacaoDeCompra(FormaDePagamento, valorTotal,numeroParcelas,dataDeVencimento,tipoCartao);
     }
 }

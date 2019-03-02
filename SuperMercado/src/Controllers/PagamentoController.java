@@ -11,7 +11,7 @@ import View.Pagamento;
  *
  * @author ander
  */
-public class PagamentoControllers {
+public class PagamentoController {
     
     static Pagamento pagamento;
     

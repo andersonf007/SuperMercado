@@ -7,6 +7,7 @@
 package View;
 
 import Controllers.PDVController;
+import java.util.Date;
 
 /**
  *
@@ -41,6 +42,12 @@ public class Pagamento extends javax.swing.JFrame {
         jTextFieldValorTotal = new javax.swing.JTextField();
         jComboBoxFormaPagamento = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBoxNumeroDeParcelas = new javax.swing.JComboBox<>();
+        jDateChooserDataDePagamento = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxTipoDeCartao = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 255));
@@ -82,13 +89,50 @@ public class Pagamento extends javax.swing.JFrame {
         jPanel1.setBounds(230, 10, 240, 110);
 
         jComboBoxFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jComboBoxFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cartão De Credito", "Cartão De Debito" }));
+        jComboBoxFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Cartão De Credito", "Cartão De Debito" }));
+        jComboBoxFormaPagamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxFormaPagamentoMouseClicked(evt);
+            }
+        });
         jPanel2.add(jComboBoxFormaPagamento);
         jComboBoxFormaPagamento.setBounds(20, 110, 180, 40);
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Forma de Pagamento:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(20, 80, 180, 30);
+        jLabel2.setBounds(20, 80, 150, 30);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Número de parcelas:");
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(20, 160, 140, 20);
+
+        jComboBoxNumeroDeParcelas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxNumeroDeParcelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10", "x11", "x12" }));
+        jComboBoxNumeroDeParcelas.setEnabled(false);
+        jPanel2.add(jComboBoxNumeroDeParcelas);
+        jComboBoxNumeroDeParcelas.setBounds(20, 190, 120, 40);
+
+        jDateChooserDataDePagamento.setEnabled(false);
+        jPanel2.add(jDateChooserDataDePagamento);
+        jDateChooserDataDePagamento.setBounds(160, 190, 150, 40);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Data de vencimento:");
+        jPanel2.add(jLabel4);
+        jLabel4.setBounds(160, 160, 190, 20);
+
+        jComboBoxTipoDeCartao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxTipoDeCartao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Visa", "Master Card", "Elo", "Gold", " " }));
+        jComboBoxTipoDeCartao.setEnabled(false);
+        jPanel2.add(jComboBoxTipoDeCartao);
+        jComboBoxTipoDeCartao.setBounds(330, 190, 120, 40);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Tipo de Cartão:");
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(330, 160, 140, 20);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 480, 360);
@@ -100,9 +144,24 @@ public class Pagamento extends javax.swing.JFrame {
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         String FormaDePagamento = (String) jComboBoxFormaPagamento.getSelectedItem();
         String valorTotal = jTextFieldValorTotal.getText();
-        PDVController.setInfoPag(FormaDePagamento, valorTotal);
+        int NumeroParcelas = Integer.parseInt((String) jComboBoxNumeroDeParcelas.getSelectedItem());
+        Date dataVencimento = jDateChooserDataDePagamento.getDate();
+        String tipoCartao = (String) jComboBoxTipoDeCartao.getSelectedItem();
+        PDVController.setInfoPag(FormaDePagamento, valorTotal,NumeroParcelas,dataVencimento,tipoCartao);
         this.dispose();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
+
+    private void jComboBoxFormaPagamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxFormaPagamentoMouseClicked
+       if(jComboBoxFormaPagamento.getSelectedItem() == "Cartão De Credito"){
+           jComboBoxNumeroDeParcelas.setEnabled(true);
+           jComboBoxTipoDeCartao.setEnabled(true);
+           jDateChooserDataDePagamento.setEnabled(true);
+       }else{
+           jComboBoxNumeroDeParcelas.setEnabled(false);
+           jComboBoxTipoDeCartao.setEnabled(false);
+           jDateChooserDataDePagamento.setEnabled(false);
+       }
+    }//GEN-LAST:event_jComboBoxFormaPagamentoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -143,8 +202,14 @@ public class Pagamento extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JComboBox<String> jComboBoxFormaPagamento;
+    private javax.swing.JComboBox<String> jComboBoxNumeroDeParcelas;
+    private javax.swing.JComboBox<String> jComboBoxTipoDeCartao;
+    private com.toedter.calendar.JDateChooser jDateChooserDataDePagamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextFieldValorTotal;

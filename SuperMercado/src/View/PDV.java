@@ -2,8 +2,8 @@ package View;
 
 
 import Controllers.PDVController;
-import Controllers.PagamentoControllers;
-import Controllers.PessoaFisicaControllers;
+import Controllers.PagamentoController;
+import Controllers.PessoaFisicaController;
 import ModelBeans.CreditoBeans;
 import ModelBeans.DebitoBeans;
 import ModelBeans.ModelTabela;
@@ -61,7 +61,7 @@ public class PDV extends javax.swing.JFrame {
         idClienteFisica = modelPessoa.getCodigo();
     }
     
-    public void finalizacaoDeCompra(String FormaDePagamento, String valorTotal){
+    public void finalizacaoDeCompra(String FormaDePagamento, String valorTotal, int numeroParcelas,Date dataDeVencimento, String TipoCartao){
         
         vendaBeans.setValor(Integer.parseInt(valorTotal));
         vendaBeans.setDataVenda(data);
@@ -69,7 +69,12 @@ public class PDV extends javax.swing.JFrame {
         int idVenda = vendaDAO.Salvar(vendaBeans);
         
         if(FormaDePagamento.equals("Cartão De Credito")){
-           // creditoBeans.set
+            creditoBeans.setDataVencimento(dataDeVencimento);
+            creditoBeans.setNumeroParcelas(numeroParcelas);
+            creditoBeans.setId_venda(idVenda);
+            creditoBeans.setTipoCartao(TipoCartao);
+       }else{
+            
         }
     }
     
@@ -249,12 +254,12 @@ public class PDV extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
-        PagamentoControllers.openPagamento();
-        PagamentoControllers.setValorTotal(total);//transferir o valor total para a tela de pagamento
+        PagamentoController.openPagamento();
+        PagamentoController.setValorTotal(total);//transferir o valor total para a tela de pagamento
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
     private void jLabelInformarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInformarClienteMouseClicked
-       PessoaFisicaControllers.openBuscarPessoaFisica();
+       PessoaFisicaController.openBuscarPessoaFisica();
     }//GEN-LAST:event_jLabelInformarClienteMouseClicked
     
     /*Função Incrementa a lista de produtos na view*/

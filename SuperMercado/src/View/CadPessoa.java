@@ -298,7 +298,8 @@ public class CadPessoa extends javax.swing.JFrame {
         }else{
             pessoaBeans.setSexo("F");
         }
-        if(jDateChooserDataNasc.getDate() == null){//para a pessoa juridica que não tem data de nascimento. esse if verifica se é nulo e adiciona uma data default
+        //para a pessoa juridica que não tem data de nascimento. esse if verifica se é nulo e adiciona uma data default
+        if(jDateChooserDataNasc.getDate() == null){
             try {
                 pessoaBeans.setDataNasc(formato.parse("01/01/1900"));
             } catch (ParseException ex) {

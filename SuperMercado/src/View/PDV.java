@@ -17,6 +17,7 @@ import ModelDao.DebitoDAO;
 import ModelDao.VendaDAO;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -50,6 +51,8 @@ public class PDV extends javax.swing.JFrame {
         jLabelDescricao.setText(model.getDescricao());
         jTextFieldValorUnitario.setText(Double.toString(model.getValorVenda()));
         jTextFieldQuantidade.setText(Integer.toString(1));
+        jTextFieldQuantidade.setEnabled(true);
+        jTextFieldValorUnitario.setEnabled(true);        
         getContentPane().repaint();   
     }
 
@@ -115,6 +118,7 @@ public class PDV extends javax.swing.JFrame {
         jTextFieldQuantidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextFieldQuantidade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldQuantidade.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextFieldQuantidade.setEnabled(false);
         jPanel1.add(jTextFieldQuantidade);
         jTextFieldQuantidade.setBounds(20, 250, 170, 40);
 
@@ -135,6 +139,7 @@ public class PDV extends javax.swing.JFrame {
 
         jTextFieldCodigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextFieldCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldCodigo.setToolTipText("Precione F2 para pesquisar o produto");
         jTextFieldCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextFieldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -147,6 +152,7 @@ public class PDV extends javax.swing.JFrame {
         jTextFieldValorUnitario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextFieldValorUnitario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldValorUnitario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextFieldValorUnitario.setEnabled(false);
         jPanel1.add(jTextFieldValorUnitario);
         jTextFieldValorUnitario.setBounds(20, 170, 170, 40);
 
@@ -194,6 +200,7 @@ public class PDV extends javax.swing.JFrame {
 
         jButtonFinalizar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonFinalizar.setText("Finalizar");
+        jButtonFinalizar.setEnabled(false);
         jButtonFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFinalizarActionPerformed(evt);
@@ -245,21 +252,30 @@ public class PDV extends javax.swing.JFrame {
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         //Chama a função para preencher a lista (Tabela)
-        preencherTabela();
-        jTextFieldCodigo.setText("");
-        jLabelDescricao.setText("");
-        total += Double.parseDouble(jTextFieldValorUnitario.getText());
-        jTextFieldTotal.setText(Double.toString(total));
-        jTextFieldValorUnitario.setText("");
-        jTextFieldQuantidade.setText("");
-        jTextFieldCodigo.requestFocus();        
+        if(jTextFieldCodigo.getText().isEmpty() || jTextFieldQuantidade.getText().isEmpty() || jTextFieldValorUnitario .getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Favor, preencha todos os campos \n ou selecione o campo codigo e aperte F2");
+        }else{
+            preencherTabela();
+            jTextFieldCodigo.setText("");
+            jLabelDescricao.setText("");
+            total += Double.parseDouble(jTextFieldValorUnitario.getText());
+            jTextFieldTotal.setText(Double.toString(total));
+            jTextFieldValorUnitario.setText("");
+            jTextFieldQuantidade.setText("");
+            jTextFieldCodigo.requestFocus();    
+        }
+            
         
         
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
+       if(jLabelNome.getText().isEmpty() || jLabelCpf.getText().isEmpty()){
+           JOptionPane.showMessageDialog(null, "Favor informar o cliente");
+       }else{        
         PagamentoController.openPagamento();
-        PagamentoController.setValorTotal(total);//transferir o valor total para a tela de pagamento
+        PagamentoController.setValorTotal(total);//transferir o valor total para a tela de pagamento   
+       }
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
     private void jLabelInformarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInformarClienteMouseClicked
@@ -293,7 +309,9 @@ public class PDV extends javax.swing.JFrame {
         jTableListaDeProdutos.getTableHeader().setReorderingAllowed(false);
         jTableListaDeProdutos.setAutoResizeMode(jTableListaDeProdutos.AUTO_RESIZE_OFF);
         jTableListaDeProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+        jButtonFinalizar.setEnabled(true);
+        jTextFieldQuantidade.setEnabled(false);
+        jTextFieldValorUnitario.setEnabled(false);
     }
        
     public static void main(String args[]) {

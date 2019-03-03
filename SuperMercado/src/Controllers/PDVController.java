@@ -51,7 +51,7 @@ public class PDVController {
         pdv.recebeDadosPessoaFisica(modelPessoa,modelPessoaFisica);
     }
     
-    public static void setInfoPag(String FormaDePagamento, String valorTotal,int numeroParcelas,Date dataDeVencimento,String tipoCartao){
+    public static void setInfoPag(String FormaDePagamento, double valorTotal,int numeroParcelas,Date dataDeVencimento,String tipoCartao){
         pdv.finalizacaoDeCompra(FormaDePagamento, valorTotal,numeroParcelas,dataDeVencimento,tipoCartao);
     }
 }

@@ -109,7 +109,7 @@ public class Pagamento extends javax.swing.JFrame {
         jLabel3.setBounds(20, 160, 140, 20);
 
         jComboBoxNumeroDeParcelas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jComboBoxNumeroDeParcelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10", "x11", "x12" }));
+        jComboBoxNumeroDeParcelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
         jComboBoxNumeroDeParcelas.setEnabled(false);
         jPanel2.add(jComboBoxNumeroDeParcelas);
         jComboBoxNumeroDeParcelas.setBounds(20, 190, 120, 40);
@@ -143,7 +143,7 @@ public class Pagamento extends javax.swing.JFrame {
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         String FormaDePagamento = (String) jComboBoxFormaPagamento.getSelectedItem();
-        String valorTotal = jTextFieldValorTotal.getText();
+        double valorTotal = Double.parseDouble(jTextFieldValorTotal.getText());
         int NumeroParcelas = Integer.parseInt((String) jComboBoxNumeroDeParcelas.getSelectedItem());
         Date dataVencimento = jDateChooserDataDePagamento.getDate();
         String tipoCartao = (String) jComboBoxTipoDeCartao.getSelectedItem();

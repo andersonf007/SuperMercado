@@ -61,9 +61,9 @@ public class PDV extends javax.swing.JFrame {
         idClienteFisica = modelPessoa.getCodigo();
     }
     
-    public void finalizacaoDeCompra(String FormaDePagamento, String valorTotal, int numeroParcelas,Date dataDeVencimento, String TipoCartao){
+    public void finalizacaoDeCompra(String FormaDePagamento, double valorTotal, int numeroParcelas,Date dataDeVencimento, String TipoCartao){
         
-        vendaBeans.setValor(Integer.parseInt(valorTotal));
+        vendaBeans.setValor(valorTotal);
         vendaBeans.setDataVenda(data);
         vendaBeans.setId_pessoa(idClienteFisica);
         int idVenda = vendaDAO.Salvar(vendaBeans);
@@ -73,8 +73,12 @@ public class PDV extends javax.swing.JFrame {
             creditoBeans.setNumeroParcelas(numeroParcelas);
             creditoBeans.setId_venda(idVenda);
             creditoBeans.setTipoCartao(TipoCartao);
+            creditoDAO.Salvar(creditoBeans);
        }else{
-            
+            debitoBeans.setTipoCartao(TipoCartao);
+            debitoBeans.setId_venda(idVenda);
+            debitoBeans.setDataPagamento(data);
+            debitoDao.Salvar(debitoBeans);
         }
     }
     

@@ -6,6 +6,7 @@ import Controllers.PagamentoController;
 import Controllers.PessoaFisicaController;
 import ModelBeans.CreditoBeans;
 import ModelBeans.DebitoBeans;
+import ModelBeans.ItensVBeans;
 import ModelBeans.ModelTabela;
 import ModelBeans.PessoaBeans;
 import ModelBeans.PessoaFisicaBeans;
@@ -15,6 +16,7 @@ import ModelConection.ConexaoBD;
 import ModelDao.CreditoDAO;
 import ModelDao.DebitoDAO;
 import ModelDao.VendaDAO;
+import ModelDao.ItensVDAO;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -34,6 +36,8 @@ public class PDV extends javax.swing.JFrame {
     DebitoDAO debitoDao = new DebitoDAO();
     CreditoBeans creditoBeans = new CreditoBeans();
     CreditoDAO creditoDAO = new CreditoDAO();
+    ItensVBeans itensVBenas = new ItensVBeans();
+    ItensVDAO itensVDAO = new ItensVDAO();
     ArrayList lista = new ArrayList();    
     Date data = new Date(System.currentTimeMillis());
     String descricao, id, valor, quantidade;
@@ -82,6 +86,10 @@ public class PDV extends javax.swing.JFrame {
             debitoBeans.setId_venda(idVenda);
             debitoBeans.setDataPagamento(data);
             debitoDao.Salvar(debitoBeans);
+        }
+        
+        for(int i = 0; i > lista.size(); i++){
+            
         }
     }
     
@@ -285,16 +293,16 @@ public class PDV extends javax.swing.JFrame {
     /*Função Incrementa a lista de produtos na view*/
     public void preencherTabela() {
            
-           String id = jTextFieldCodigo.getText();
-           String descricao = jLabelDescricao.getText(); 
-           String valor = jTextFieldValorUnitario.getText();
-           String quantidade = jTextFieldQuantidade.getText();
+           id = jTextFieldCodigo.getText();
+           descricao = jLabelDescricao.getText(); 
+           valor = jTextFieldValorUnitario.getText();
+           quantidade = jTextFieldQuantidade.getText();
           
            
         String[] colunas = new String[]{"ID", "Descrição", "Quantidade", "Valor"};
 
         lista.add(new Object[]{id, descricao, quantidade, valor});            
-
+        
         ModelTabela modelo = new ModelTabela(lista, colunas);
 
         jTableListaDeProdutos.setModel(modelo);

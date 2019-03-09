@@ -30,7 +30,7 @@ public class NFE extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableListaDeNFE = new javax.swing.JTable();
-        jButtonCancelar = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
         jLabelNomeCliente1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabelDescricaoProduto = new javax.swing.JLabel();
@@ -51,6 +51,7 @@ public class NFE extends javax.swing.JFrame {
         jLabelValorTotal = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButtonNovo = new javax.swing.JButton();
+        jButtonCancelar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 255));
@@ -75,10 +76,10 @@ public class NFE extends javax.swing.JFrame {
         jPanel3.add(jScrollPane1);
         jScrollPane1.setBounds(10, 11, 465, 402);
 
-        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButtonCancelar.setText("Cancelar");
-        jPanel3.add(jButtonCancelar);
-        jButtonCancelar.setBounds(270, 440, 90, 30);
+        jButtonSalvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonSalvar.setText("Salvar");
+        jPanel3.add(jButtonSalvar);
+        jButtonSalvar.setBounds(390, 440, 90, 30);
 
         jLabelNomeCliente1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jPanel3.add(jLabelNomeCliente1);
@@ -179,7 +180,12 @@ public class NFE extends javax.swing.JFrame {
         jButtonNovo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonNovo.setText("Novo");
         jPanel3.add(jButtonNovo);
-        jButtonNovo.setBounds(380, 440, 90, 30);
+        jButtonNovo.setBounds(10, 440, 90, 30);
+
+        jButtonCancelar1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonCancelar1.setText("Cancelar");
+        jPanel3.add(jButtonCancelar1);
+        jButtonCancelar1.setBounds(110, 440, 90, 30);
 
         getContentPane().add(jPanel3);
         jPanel3.setBounds(0, 0, 1020, 500);
@@ -225,8 +231,9 @@ public class NFE extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonCancelar1;
     private javax.swing.JButton jButtonNovo;
+    private javax.swing.JButton jButtonSalvar;
     private com.toedter.calendar.JDateChooser jDateChooserDataSaida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
